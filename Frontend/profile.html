@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Vitly helps VIT students with CGPA calculator, FFCS planner, previous year papers, attendance tools and student resources.">
+    <title>VITly - User Profile</title>
+    <link rel="icon" type="image/png" href="../images/mainlogo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #F5F5F7;
+            overflow-x: hidden;
+        }
+
+        /* Fullscreen Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+
+        .spinner div {
+            position: absolute;
+            width: 3px;
+            height: 10px;
+            background: #111;
+            border-radius: 10px;
+            top: 2px;
+            left: 15px;
+            transform-origin: center 16px;
+            animation: fade 1.2s linear infinite;
+        }
+
+        .spinner div:nth-child(1) {
+            transform: rotate(0deg);
+            animation-delay: -1.1s;
+        }
+
+        .spinner div:nth-child(2) {
+            transform: rotate(30deg);
+            animation-delay: -1s;
+        }
+
+        .spinner div:nth-child(3) {
+            transform: rotate(60deg);
+            animation-delay: -0.9s;
+        }
+
+        .spinner div:nth-child(4) {
+            transform: rotate(90deg);
+            animation-delay: -0.8s;
+        }
+
+        .spinner div:nth-child(5) {
+            transform: rotate(120deg);
+            animation-delay: -0.7s;
+        }
+
+        .spinner div:nth-child(6) {
+            transform: rotate(150deg);
+            animation-delay: -0.6s;
+        }
+
+        .spinner div:nth-child(7) {
+            transform: rotate(180deg);
+            animation-delay: -0.5s;
+        }
+
+        .spinner div:nth-child(8) {
+            transform: rotate(210deg);
+            animation-delay: -0.4s;
+        }
+
+        .spinner div:nth-child(9) {
+            transform: rotate(240deg);
+            animation-delay: -0.3s;
+        }
+
+        .spinner div:nth-child(10) {
+            transform: rotate(270deg);
+            animation-delay: -0.2s;
+        }
+
+        .spinner div:nth-child(11) {
+            transform: rotate(300deg);
+            animation-delay: -0.1s;
+        }
+
+        .spinner div:nth-child(12) {
+            transform: rotate(330deg);
+            animation-delay: 0s;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.15;
+            }
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.312);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar button {
+            background-color: transparent;
+            border: none;
+            color: rgb(87, 87, 87);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 350;
+        }
+
+        .logout {
+            padding: 10px 20px;
+            color: white !important;
+            background-color: #000000 !important;
+            border: none;
+            border-radius: 40px;
+            font-size: 15px;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            font-weight: 500 !important;
+        }
+
+        .logout:hover {
+            background-color: #ff0000 !important;
+        }
+
+        .main-wrapper {
+            margin-top: 100px;
+            padding: 0 40px 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: filter 0.4s ease;
+            width: 100%;
+            min-height: calc(100vh - 160px);
+            justify-content: center;
+        }
+
+        .blur-bg {
+            filter: blur(6px);
+            pointer-events: none;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid #0177ED;
+            padding: 3px;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .profile-email {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .btn-delete {
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid #ff3b30;
+            color: #ff3b30;
+            background: transparent;
+            font-weight: 500;
+            width: 100%;
+            display: block;
+        }
+
+        .btn-delete:hover {
+            background: #fff0f0;
+        }
+
+        .hide {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .p_active {
+            color: #0177ED !important;
+            font-weight: 600 !important;
+        }
+        .hamburger { display: none; background: transparent; border: none; font-size: 28px; cursor: pointer; color: #333; margin-left: auto; z-index: 10; }
+        .mobile-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
+            z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.4s ease; gap: 20px;
+        }
+        .mobile-menu-overlay.active { opacity: 1; pointer-events: auto; }
+        .mobile-menu-overlay button {
+            background: transparent; border: none; font-size: 20px; font-weight: 500; color: #333; cursor: pointer; transition: 0.3s;
+        }
+        .mobile-menu-overlay button:hover { color: #0177ED; }
+        .mobile-menu-overlay button.logout {
+            background: #000 !important; color: #fff !important; padding: 12px 30px; border-radius: 40px; margin-top: 10px;
+        }
+        .mobile-menu-overlay button.logout:hover { background: #ff3b30 !important; }
+        .mobile-menu-overlay .close-menu { position: absolute; top: 20px; right: 30px; font-size: 40px; }
+
+        @media (max-width: 768px) {
+            .navbar { justify-content: flex-end; padding-right: 30px; overflow: visible; height: 60px;}
+            .navbar img { position: absolute !important; left: 20px !important; top: 50% !important; transform: translateY(-50%) !important; }
+            .navbar button:not(.hamburger) { display: none !important; }
+            .hamburger { display: block; }
+
+            .main-wrapper { padding: 0 20px; }
+            .profile-card { padding: 30px 20px; }
+            .profile-name { font-size: 24px; }
+            .profile-email { font-size: 14px; }
+            .btn-delete { padding: 12px; font-size: 14px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <img src="../images/mainlogo.png" alt="" width="50"
+            style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
+        <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+        <button onclick="window.location.href='/dashboard'">Home</button>
+        <button onclick="showToast('This feature will be added soon.')">Orders</button>
+        <button onclick="window.location.href='/cgpa_Calc'">CGPA Calculator</button>
+        <button onclick="showToast('This feature will be added soon.')">Previous Year Papers</button>
+        <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
+        <button onclick="window.location.href='/profile'" class="p_active">Profile</button>
+        <button class="logout" onclick="logout()">Logout</button>
+    </nav>
+
+    <div id="mainBoundary" class="main-wrapper">
+        <div class="profile-card">
+
+            <h2 id="userName" class="profile-name">Loading...</h2>
+            <p id="userEmail" class="profile-email">Loading email...</p>
+
+            <button class="btn-delete" onclick="deleteAccount()">Delete account from VITly</button>
+        </div>
+    </div>
+
+
+
+    <script>
+        window.addEventListener("load", () => {
+            fetch("/api/user")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("userName").innerText = data.name;
+                    document.getElementById("userEmail").innerText = data.email;
+                    if (data.picture) document.getElementById("userPicture").src = data.picture;
+
+                    setTimeout(() => { document.getElementById("loader").classList.add("hide"); }, 200);
+                })
+                .catch(err => {
+                    console.error("Failed to load user", err);
+                    setTimeout(() => { document.getElementById("loader").classList.add("hide"); }, 200);
+                });
+        });
+
+        function toggleMobileMenu() {
+            let menu = document.getElementById('mobileMenuOverlay');
+            if (!menu) {
+                menu = document.createElement('div');
+                menu.id = 'mobileMenuOverlay';
+                menu.className = 'mobile-menu-overlay';
+                let navButtons = Array.from(document.querySelectorAll('.navbar button:not(.hamburger)')).map(btn => {
+                    return btn.outerHTML.replace('onclick="', 'onclick="toggleMobileMenu(); ');
+                }).join('');
+                menu.innerHTML = `
+                    <button class="close-menu" onclick="toggleMobileMenu()">×</button>
+                    ${navButtons}
+                `;
+                document.body.appendChild(menu);
+                void menu.offsetWidth;
+            }
+            menu.classList.toggle('active');
+        }
+
+        function showToast(msg) {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                container.style.cssText = 'position: fixed; top: 80px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px;';
+                document.body.appendChild(container);
+            }
+            const toast = document.createElement('div');
+            toast.innerText = msg;
+            toast.style.cssText = 'background: #333; color: #fff; padding: 15px 25px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);';
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; toast.style.opacity = '1'; }, 10);
+            setTimeout(() => { toast.style.transform = 'translateX(120%)'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2000);
+        }
+
+        function logout() {
+            const modalHTML = `
+            <div id="logoutModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">
+                <div class="modal-card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); text-align: center; width: 90%; max-width: 400px; transform: scale(0.9); transition: transform 0.3s ease;">
+                    <h2 style="color: #333; margin-bottom: 10px;">Confirm Logout</h2>
+                    <p style="color: #666; font-size: 15px; margin-bottom: 30px;">Are you sure you want to log out of VITly?</p>
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button onclick="document.getElementById('logoutModalOverlay').remove()" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #f1f1f1; color: #333;">Cancel</button>
+                        <button onclick="window.location.href='/logout'" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #ff3b30; color: white;">Yes, Logout</button>
+                    </div>
+                </div>
+            </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            setTimeout(() => {
+                const overlay = document.getElementById('logoutModalOverlay');
+                if (overlay) {
+                    overlay.style.opacity = '1';
+                    overlay.querySelector('.modal-card').style.transform = 'scale(1)';
+                }
+            }, 10);
+        }
+
+        function deleteAccount() {
+            const modalHTML = `
+            <div id="deleteModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">
+                <div class="modal-card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); text-align: center; width: 90%; max-width: 400px; transform: scale(0.9); transition: transform 0.3s ease;">
+                    <h2 style="color: #333; margin-bottom: 10px;">Delete Account</h2>
+                    <p style="color: #666; font-size: 15px; margin-bottom: 30px;">Are you sure you want to completely delete your account from VITly? This action cannot be undone.</p>
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button onclick="document.getElementById('deleteModalOverlay').remove()" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #f1f1f1; color: #333;">Cancel</button>
+                        <button onclick="executeDelete()" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #ff3b30; color: white;">Delete</button>
+                    </div>
+                </div>
+            </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            setTimeout(() => {
+                const overlay = document.getElementById('deleteModalOverlay');
+                if (overlay) {
+                    overlay.style.opacity = '1';
+                    overlay.querySelector('.modal-card').style.transform = 'scale(1)';
+                }
+            }, 10);
+        }
+
+        function executeDelete() {
+            fetch('/api/delete-user', { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "/";
+                    } else {
+                        alert("Failed to delete account.");
+                    }
+                })
+                .catch(err => alert("Error communicating with server."));
+        }
+    </script>
+</body>
+
+</html>

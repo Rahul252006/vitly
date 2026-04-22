@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT FFCS Planner - Build Conflict Free Timetable | Vitly</title>
+    <meta name="description"
+        content="Vitly helps VIT students with CGPA calculator, FFCS planner, previous year papers, attendance tools and student resources.">
+    <link rel="icon" type="image/png" href="../images/mainlogo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #F5F5F7;
+            overflow-x: hidden;
+        }
+
+        /* Fullscreen Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+
+        .spinner div {
+            position: absolute;
+            width: 3px;
+            height: 10px;
+            background: #111;
+            border-radius: 10px;
+            top: 2px;
+            left: 15px;
+            transform-origin: center 16px;
+            animation: fade 1.2s linear infinite;
+        }
+
+        .spinner div:nth-child(1) {
+            transform: rotate(0deg);
+            animation-delay: -1.1s;
+        }
+
+        .spinner div:nth-child(2) {
+            transform: rotate(30deg);
+            animation-delay: -1s;
+        }
+
+        .spinner div:nth-child(3) {
+            transform: rotate(60deg);
+            animation-delay: -0.9s;
+        }
+
+        .spinner div:nth-child(4) {
+            transform: rotate(90deg);
+            animation-delay: -0.8s;
+        }
+
+        .spinner div:nth-child(5) {
+            transform: rotate(120deg);
+            animation-delay: -0.7s;
+        }
+
+        .spinner div:nth-child(6) {
+            transform: rotate(150deg);
+            animation-delay: -0.6s;
+        }
+
+        .spinner div:nth-child(7) {
+            transform: rotate(180deg);
+            animation-delay: -0.5s;
+        }
+
+        .spinner div:nth-child(8) {
+            transform: rotate(210deg);
+            animation-delay: -0.4s;
+        }
+
+        .spinner div:nth-child(9) {
+            transform: rotate(240deg);
+            animation-delay: -0.3s;
+        }
+
+        .spinner div:nth-child(10) {
+            transform: rotate(270deg);
+            animation-delay: -0.2s;
+        }
+
+        .spinner div:nth-child(11) {
+            transform: rotate(300deg);
+            animation-delay: -0.1s;
+        }
+
+        .spinner div:nth-child(12) {
+            transform: rotate(330deg);
+            animation-delay: 0s;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.15;
+            }
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.312);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar button {
+            background-color: transparent;
+            border: none;
+            color: rgb(87, 87, 87);
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .logout {
+            padding: 10px 20px;
+            color: white !important;
+            background-color: #000000 !important;
+            border: none;
+            border-radius: 40px;
+            font-size: 15px;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            font-weight: 500 !important;
+        }
+
+        .logout:hover {
+            background-color: #ff0000 !important;
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .planner-form {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: max-content;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .form-group input {
+            padding: 10px 15px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #0177ED;
+        }
+
+        button.know {
+            padding: 12px 15px;
+            color: white;
+            background-color: #0177ED;
+            border: none;
+            border-radius: 40px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            margin-top: 18px;
+            width: max-content;
+        }
+
+        .knowd {
+            padding: 12px 15px;
+            color: white;
+            background-color: #000000;
+            border: none;
+            border-radius: 40px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            margin-top: 18px;
+            width: max-content;
+
+        }
+
+        button.know:hover {
+            background-color: #0080ff;
+        }
+
+        button.nonknow {
+            padding: 12px 25px;
+            border: 1px solid #0177ED;
+            border-radius: 40px;
+            background: transparent;
+            color: #0177ED;
+            cursor: pointer;
+            margin-top: 18px;
+            font-size: 14px;
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        button.nonknow:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* Custom Dropdown Styles */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 100%;
+            /* 38px per item roughly. 8 * 38 = 304px */
+            max-height: 304px;
+            overflow-y: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+            z-index: 1005;
+            border-radius: 8px;
+            border: 1px solid #dcdcdc;
+            margin-top: 5px;
+        }
+
+        .ffcs_active {
+            color: #0177ED !important;
+            font-weight: 600 !important;
+        }
+
+        .dropdown-content div {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .dropdown-content div:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content div:hover {
+            background-color: #f1f7ff;
+            color: #0177ED;
+            font-weight: 500;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            transition: filter 0.3s ease;
+        }
+
+        .blur-bg {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        .table-box {
+            animation: fadeUp 0.6s ease forwards;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 60px;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #dcdcdc;
+            width: 100%;
+            text-align: center;
+        }
+
+        table th,
+        table td {
+            padding: 15px 10px;
+            border-right: 1px solid #dcdcdc;
+            border-bottom: 1px solid #dcdcdc;
+            font-size: 13px;
+        }
+
+        table th:last-child,
+        table td:last-child {
+            border-right: none;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        table th {
+            background-color: #0080ff;
+            color: white;
+            font-weight: 500;
+        }
+
+        td.day {
+            font-weight: 600;
+            background-color: #f9f9fb;
+        }
+
+        .hide {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        td.slot-cell {
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        td.slot-cell:hover {
+            background-color: #cee1f5;
+        }
+
+        td.slot-cell.active-slot {
+            background-color: #0177ED;
+            color: white;
+            font-weight: bold;
+            box-shadow: inset 0 0 0 2px #005bb5;
+        }
+
+        td.lunch {
+            background: #eee;
+            font-weight: 600;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 5px;
+        }
+
+        .hamburger {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #333;
+            margin-left: auto;
+            z-index: 10;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s ease;
+            gap: 20px;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-menu-overlay button {
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mobile-menu-overlay button:hover {
+            color: #0177ED;
+        }
+
+        .mobile-menu-overlay button.logout {
+            background: #000 !important;
+            color: #fff !important;
+            padding: 12px 30px;
+            border-radius: 40px;
+            margin-top: 10px;
+        }
+
+        .mobile-menu-overlay button.logout:hover {
+            background: #ff3b30 !important;
+        }
+
+        .mobile-menu-overlay .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                justify-content: flex-end;
+                padding-right: 30px;
+                overflow: visible;
+                height: 60px;
+            }
+
+            .navbar img {
+                position: absolute !important;
+                left: 20px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+            }
+
+            .navbar button:not(.hamburger) {
+                display: none !important;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            main {
+                padding: 0 15px;
+                margin-top: 80px;
+            }
+
+            h1 {
+                font-size: 28px !important;
+            }
+
+            .planner-form {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+                max-width: 100% !important;
+                padding: 20px;
+                border-radius: 12px;
+                box-sizing: border-box;
+            }
+
+            .planner-form .form-group {
+                width: 100%;
+            }
+
+            .planner-form input,
+            .planner-form select {
+                width: 100%;
+                font-size: 14px;
+                box-sizing: border-box;
+            }
+
+            button.know,
+            .knowd {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box;
+                margin-top: 10px;
+            }
+
+            .timetable {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                max-width: 100vw;
+                margin: 0 -15px;
+                padding: 0 15px;
+            }
+
+            table {
+                width: 1000px;
+                /* Force table to stay wide and scrollable */
+            }
+
+            .action-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .action-bar button {
+                width: 100%;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <div id="loader">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <img src="../images/mainlogo.png" alt="" width="50"
+            style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
+        <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+        <button onclick="window.location.href='/dashboard'">Home</button>
+        <button onclick="showToast('This feature will be added soon.')">Orders</button>
+        <button onclick="window.location.href='/cgpa_Calc'">CGPA Calculator</button>
+        <button onclick="showToast('This feature will be added soon.')">Previous Year Papers</button>
+        <button onclick="window.location.href='/FFCS'" class="ffcs_active">FFCS Planner</button>
+        <button onclick="window.location.href='/profile'">Profile</button>
+        <button class="logout" onclick="logout()">Logout</button>
+    </nav>
+    <main>
+        <h1>Plan Your Timetable - VITly</h1>
+
+        <!-- Planner form kept outside the blur wrapper so it remains focused while background blurs -->
+        <div class="planner-form">
+            <div class="form-group">
+                <label for="courseCode">Course Code</label>
+                <input type="text" id="courseCode" placeholder="e.g. BITE302L">
+            </div>
+            <div class="form-group">
+                <label for="courseTitle">Course Name</label>
+                <input type="text" id="courseTitle" placeholder="e.g. Database Systems">
+            </div>
+            <div class="form-group">
+                <label>Slot Selection</label>
+                <div class="custom-dropdown">
+                    <input type="text" id="courseSlot" placeholder="Select or type slot" onfocus="openDropdown()"
+                        oninput="filterDropdown()" autocomplete="off">
+                    <div id="slotDropdownList" class="dropdown-content">
+                        <!-- Javascript will dynamically inject slots here -->
+                    </div>
+                </div>
+            </div>
+            <button class="know" onclick="addSlot()">Add to Table</button>
+            <button class="nonknow" onclick="clearInput()">Clear Input</button>
+            <button class="nonknow" onclick="clearTable()">Clear Table</button>
+            <button class="knowd" onclick="downloadPDF()">Download Timetable</button>
+        </div>
+
+        <div id="mainBoundary" class="main-wrapper">
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th style="background-color: #006bce; min-width: 80px;">THEORY<br>HOURS</th>
+                        <th>08:00 AM<br>to<br>08:50 AM</th>
+                        <th>09:00 AM<br>to<br>09:50 AM</th>
+                        <th>10:00 AM<br>to<br>10:50 AM</th>
+                        <th>11:00 AM<br>to<br>11:50 AM</th>
+                        <th>12:00 PM<br>to<br>12:50 PM</th>
+                        <th>-</th>
+                        <th rowspan="7" class="lunch" style="padding:0; width:70px;">LUNCH</th>
+                        <th>02:00 PM<br>to<br>02:50 PM</th>
+                        <th>03:00 PM<br>to<br>03:50 PM</th>
+                        <th>04:00 PM<br>to<br>04:50 PM</th>
+                        <th>05:00 PM<br>to<br>05:50 PM</th>
+                        <th>06:00 PM<br>to<br>06:50 PM</th>
+                        <th>06:51 PM<br>to<br>07:00 PM</th>
+                        <th>07:01 PM<br>to<br>07:50 PM</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #006bce;">LAB<br>HOURS</th>
+                        <th>08:00 AM<br>to<br>08:50 AM</th>
+                        <th>08:51 AM<br>to<br>09:40 AM</th>
+                        <th>09:51 AM<br>to<br>10:40 AM</th>
+                        <th>10:41 AM<br>to<br>11:30 AM</th>
+                        <th>11:40 AM<br>to<br>12:30 PM</th>
+                        <th>12:31 PM<br>to<br>01:20 PM</th>
+                        <th>02:00 PM<br>to<br>02:50 PM</th>
+                        <th>02:51 PM<br>to<br>03:40 PM</th>
+                        <th>03:51 PM<br>to<br>04:40 PM</th>
+                        <th>04:41 PM<br>to<br>05:30 PM</th>
+                        <th>05:40 PM<br>to<br>06:30 PM</th>
+                        <th>06:31 PM<br>to<br>07:20 PM</th>
+                        <th>-</th>
+                    </tr>
+                    <tr>
+                        <td class="day">MON</td>
+                        <td class="slot-cell" data-slots="A1,L1">A1 / L1</td>
+                        <td class="slot-cell" data-slots="F1,L2">F1 / L2</td>
+                        <td class="slot-cell" data-slots="D1,L3">D1 / L3</td>
+                        <td class="slot-cell" data-slots="TB1,L4">TB1 / L4</td>
+                        <td class="slot-cell" data-slots="TG1,L5">TG1 / L5</td>
+                        <td class="slot-cell" data-slots="L6">L6</td>
+                        <td class="slot-cell" data-slots="A2,L31">A2 / L31</td>
+                        <td class="slot-cell" data-slots="F2,L32">F2 / L32</td>
+                        <td class="slot-cell" data-slots="D2,L33">D2 / L33</td>
+                        <td class="slot-cell" data-slots="TB2,L34">TB2 / L34</td>
+                        <td class="slot-cell" data-slots="TG2,L35">TG2 / L35</td>
+                        <td class="slot-cell" data-slots="L36">L36</td>
+                        <td class="slot-cell" data-slots="V3">V3</td>
+                    </tr>
+                    <tr>
+                        <td class="day">TUE</td>
+                        <td class="slot-cell" data-slots="B1,L7">B1 / L7</td>
+                        <td class="slot-cell" data-slots="G1,L8">G1 / L8</td>
+                        <td class="slot-cell" data-slots="E1,L9">E1 / L9</td>
+                        <td class="slot-cell" data-slots="TC1,L10">TC1 / L10</td>
+                        <td class="slot-cell" data-slots="TAA1,L11">TAA1 / L11</td>
+                        <td class="slot-cell" data-slots="L12">L12</td>
+                        <td class="slot-cell" data-slots="B2,L37">B2 / L37</td>
+                        <td class="slot-cell" data-slots="G2,L38">G2 / L38</td>
+                        <td class="slot-cell" data-slots="E2,L39">E2 / L39</td>
+                        <td class="slot-cell" data-slots="TC2,L40">TC2 / L40</td>
+                        <td class="slot-cell" data-slots="TAA2,L41">TAA2 / L41</td>
+                        <td class="slot-cell" data-slots="L42">L42</td>
+                        <td class="slot-cell" data-slots="V4">V4</td>
+                    </tr>
+                    <tr>
+                        <td class="day">WED</td>
+                        <td class="slot-cell" data-slots="C1,L13">C1 / L13</td>
+                        <td class="slot-cell" data-slots="A1,L14">A1 / L14</td>
+                        <td class="slot-cell" data-slots="F1,L15">F1 / L15</td>
+                        <td class="slot-cell" data-slots="V1,L16">V1 / L16</td>
+                        <td class="slot-cell" data-slots="V2,L17">V2 / L17</td>
+                        <td class="slot-cell" data-slots="L18">L18</td>
+                        <td class="slot-cell" data-slots="C2,L43">C2 / L43</td>
+                        <td class="slot-cell" data-slots="A2,L44">A2 / L44</td>
+                        <td class="slot-cell" data-slots="F2,L45">F2 / L45</td>
+                        <td class="slot-cell" data-slots="TD2,L46">TD2 / L46</td>
+                        <td class="slot-cell" data-slots="TBB2,L47">TBB2 / L47</td>
+                        <td class="slot-cell" data-slots="L48">L48</td>
+                        <td class="slot-cell" data-slots="V5">V5</td>
+                    </tr>
+                    <tr>
+                        <td class="day">THU</td>
+                        <td class="slot-cell" data-slots="D1,L19">D1 / L19</td>
+                        <td class="slot-cell" data-slots="B1,L20">B1 / L20</td>
+                        <td class="slot-cell" data-slots="G1,L21">G1 / L21</td>
+                        <td class="slot-cell" data-slots="TE1,L22">TE1 / L22</td>
+                        <td class="slot-cell" data-slots="TCC1,L23">TCC1 / L23</td>
+                        <td class="slot-cell" data-slots="L24">L24</td>
+                        <td class="slot-cell" data-slots="D2,L49">D2 / L49</td>
+                        <td class="slot-cell" data-slots="B2,L50">B2 / L50</td>
+                        <td class="slot-cell" data-slots="G2,L51">G2 / L51</td>
+                        <td class="slot-cell" data-slots="TE2,L52">TE2 / L52</td>
+                        <td class="slot-cell" data-slots="TCC2,L53">TCC2 / L53</td>
+                        <td class="slot-cell" data-slots="L54">L54</td>
+                        <td class="slot-cell" data-slots="V6">V6</td>
+                    </tr>
+                    <tr>
+                        <td class="day">FRI</td>
+                        <td class="slot-cell" data-slots="E1,L25">E1 / L25</td>
+                        <td class="slot-cell" data-slots="C1,L26">C1 / L26</td>
+                        <td class="slot-cell" data-slots="TA1,L27">TA1 / L27</td>
+                        <td class="slot-cell" data-slots="TF1,L28">TF1 / L28</td>
+                        <td class="slot-cell" data-slots="TD1,L29">TD1 / L29</td>
+                        <td class="slot-cell" data-slots="L30">L30</td>
+                        <td class="slot-cell" data-slots="E2,L55">E2 / L55</td>
+                        <td class="slot-cell" data-slots="C2,L56">C2 / L56</td>
+                        <td class="slot-cell" data-slots="TA2,L57">TA2 / L57</td>
+                        <td class="slot-cell" data-slots="TF2,L58">TF2 / L58</td>
+                        <td class="slot-cell" data-slots="TDD2,L59">TDD2 / L59</td>
+                        <td class="slot-cell" data-slots="L60">L60</td>
+                        <td class="slot-cell" data-slots="V7">V7</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script>
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("loader").classList.add("hide");
+            }, 200);
+
+            // Populate dropdown with all unique slots natively
+            const dropdownList = document.getElementById("slotDropdownList");
+            let tempSet = new Set();
+            document.querySelectorAll(".slot-cell").forEach(cell => {
+                let slots = cell.getAttribute("data-slots").split(",");
+                slots.forEach(s => {
+                    if (s) tempSet.add(s);
+                });
+            });
+            let sortedSlots = Array.from(tempSet).sort();
+            sortedSlots.forEach(s => {
+                let textDiv = document.createElement("div");
+                textDiv.innerText = s;
+                textDiv.onclick = function () {
+                    let inputNode = document.getElementById("courseSlot");
+                    // Append if picking multiple or replace if single. 
+                    // Let's replace for neatness since they handle one course at a time properly.
+                    inputNode.value = s;
+                    closeDropdown();
+                };
+                dropdownList.appendChild(textDiv);
+            });
+        });
+
+        // Dropdown interactions
+        document.addEventListener("click", function (e) {
+            const inputField = document.getElementById("courseSlot");
+            const dropdown = document.getElementById("slotDropdownList");
+            // close dropdown if clicked outside
+            if (e.target !== inputField && !dropdown.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        function openDropdown() {
+            document.getElementById("slotDropdownList").classList.add("show");
+            document.getElementById("mainBoundary").classList.add("blur-bg");
+        }
+
+        function closeDropdown() {
+            document.getElementById("slotDropdownList").classList.remove("show");
+            document.getElementById("mainBoundary").classList.remove("blur-bg");
+        }
+
+        function filterDropdown() {
+            let inputStr = document.getElementById("courseSlot").value.toUpperCase();
+            let options = document.getElementById("slotDropdownList").getElementsByTagName("div");
+            for (let i = 0; i < options.length; i++) {
+                let txtValue = options[i].innerText;
+                if (txtValue.toUpperCase().indexOf(inputStr) > -1) {
+                    options[i].style.display = "block";
+                } else {
+                    options[i].style.display = "none";
+                }
+            }
+        }
+
+        function addSlot() {
+            let slotInput = document.getElementById("courseSlot").value.trim().toUpperCase();
+            if (!slotInput) return;
+
+            let slotsToFind = slotInput.split(/[\s+]+/).map(s => s.trim()).filter(s => s.length > 0);
+            let allCells = document.querySelectorAll(".slot-cell");
+            let foundAny = false;
+
+            slotsToFind.forEach(singleSlot => {
+                allCells.forEach(cell => {
+                    let cellSlots = cell.getAttribute("data-slots").split(",");
+                    if (cellSlots.includes(singleSlot)) {
+                        cell.classList.add("active-slot");
+
+                        let cCode = document.getElementById("courseCode").value.toUpperCase();
+                        let cTitle = document.getElementById("courseTitle").value;
+                        let textBlock = cTitle ? cTitle : "Scheduled";
+
+                        if (!cell.innerHTML.includes('<br>')) {
+                            cell.innerHTML = `<strong>${cellSlots.join(" / ")}</strong><br><span style='font-size:11px;'><br>${textBlock}</span>`;
+                        } else {
+                            cell.innerHTML += `<br><span>${textBlock}</span>`;
+                        }
+                        foundAny = true;
+                    }
+                });
+            });
+
+            if (foundAny) {
+                // Clear input logically after adding to board
+                // clearInput();
+            } else {
+                alert("Slot not found! Please check slot name.");
+            }
+        }
+
+        function clearInput() {
+            document.getElementById("courseSlot").value = "";
+            document.getElementById("courseCode").value = "";
+            document.getElementById("courseTitle").value = "";
+            filterDropdown(); // Reset dropdown view
+        }
+
+        function clearTable() {
+            document.querySelectorAll(".slot-cell").forEach(cell => {
+                cell.classList.remove("active-slot");
+                let slots = cell.getAttribute("data-slots").split(",");
+                if (slots[0] !== "") {
+                    cell.innerHTML = slots.join(" / ");
+                } else {
+                    cell.innerHTML = "-";
+                }
+            });
+        }
+
+        function downloadPDF() {
+            document.getElementById("loader").classList.remove("hide");
+
+            const pdfContainer = document.createElement("div");
+            // Set a strict wide desktop width so the timetable doesn't squish or wrap text
+            pdfContainer.style.width = "1400px";
+            pdfContainer.style.padding = "40px";
+            pdfContainer.style.background = "#ffffff";
+            pdfContainer.style.fontFamily = "system-ui, sans-serif";
+
+            const headerObj = document.createElement("div");
+            headerObj.innerHTML = `
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <h1 style="color: #0177ED; font-size: 32px; margin: 0; font-weight: bold;">VITly Planner</h1>
+                    <p style="color: #666; font-size: 16px; margin-top: 8px;">Your perfectly tailored custom timetable layout</p>
+                </div>
+            `;
+
+            const tableClone = document.querySelector(".table-box").cloneNode(true);
+            tableClone.style.boxShadow = "none";
+            tableClone.style.transform = "none";
+            tableClone.style.animation = "none";
+            tableClone.style.margin = "0 auto 20px auto";
+            // Ensure table fills the wide fixed container without issue
+            tableClone.querySelector("table").style.width = "100%";
+
+            const footerObj = document.createElement("div");
+            footerObj.innerHTML = `
+                <div style="margin-top: 20px; text-align: center; color: #444; font-size: 15px; border-top: 2px solid #0177ED; padding-top: 20px;">
+                    <span style="font-weight: 600; color: #0177ED;">Try these all at VITly!</span> — Access customized CGPA calculators, Previous Year Papers, and the Ultimate Student Dashboard.
+                </div>
+            `;
+
+            pdfContainer.appendChild(headerObj);
+            pdfContainer.appendChild(tableClone);
+            pdfContainer.appendChild(footerObj);
+
+            // Use A3 landscape format which guarantees one wide page perfectly fitting the table
+            const opt = {
+                margin: [0.1, 0.1, 0.1, 0.1],
+                filename: 'VITly_Timetable.pdf',
+                image: { type: 'jpeg', quality: 1.0 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
+            };
+
+            html2pdf().set(opt).from(pdfContainer).save().then(() => {
+                document.getElementById("loader").classList.add("hide");
+            });
+        }
+        function toggleMobileMenu() {
+            let menu = document.getElementById('mobileMenuOverlay');
+            if (!menu) {
+                menu = document.createElement('div');
+                menu.id = 'mobileMenuOverlay';
+                menu.className = 'mobile-menu-overlay';
+                let navButtons = Array.from(document.querySelectorAll('.navbar button:not(.hamburger)')).map(btn => {
+                    return btn.outerHTML.replace('onclick="', 'onclick="toggleMobileMenu(); ');
+                }).join('');
+                menu.innerHTML = `
+                    <button class="close-menu" onclick="toggleMobileMenu()">×</button>
+                    ${navButtons}
+                `;
+                document.body.appendChild(menu);
+                void menu.offsetWidth;
+            }
+            menu.classList.toggle('active');
+        }
+
+        function showToast(msg) {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                container.style.cssText = 'position: fixed; top: 80px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px;';
+                document.body.appendChild(container);
+            }
+            const toast = document.createElement('div');
+            toast.innerText = msg;
+            toast.style.cssText = 'background: #333; color: #fff; padding: 15px 25px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);';
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; toast.style.opacity = '1'; }, 10);
+            setTimeout(() => { toast.style.transform = 'translateX(120%)'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2000);
+        }
+
+        function logout() {
+            const modalHTML = `
+            <div id="logoutModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">
+                <div class="modal-card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); text-align: center; width: 90%; max-width: 400px; transform: scale(0.9); transition: transform 0.3s ease;">
+                    <h2 style="color: #333; margin-bottom: 10px;">Confirm Logout</h2>
+                    <p style="color: #666; font-size: 15px; margin-bottom: 30px;">Are you sure you want to log out of VITly?</p>
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button onclick="document.getElementById('logoutModalOverlay').remove()" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #f1f1f1; color: #333;">Cancel</button>
+                        <button onclick="window.location.href='/logout'" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #ff3b30; color: white;">Yes, Logout</button>
+                    </div>
+                </div>
+            </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            setTimeout(() => {
+                const overlay = document.getElementById('logoutModalOverlay');
+                if (overlay) {
+                    overlay.style.opacity = '1';
+                    overlay.querySelector('.modal-card').style.transform = 'scale(1)';
+                }
+            }, 10);
+        }
+    </script>
+</body>
+
+</html>

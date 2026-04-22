@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Vitly - VIT Student Tools, CGPA Calculator, FFCS Planner & Papers</title>
+  <meta name="description"
+    content="Vitly helps VIT students with CGPA calculator, FFCS planner, previous year papers, attendance tools and student resources.">
+
+  <link rel="icon" type="image/png" href="../images/mainlogo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* Fullscreen Loader */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      position: relative;
+    }
+
+    .spinner div {
+      position: absolute;
+      width: 3px;
+      height: 10px;
+      background: #111;
+      border-radius: 10px;
+      top: 2px;
+      left: 15px;
+      transform-origin: center 16px;
+      animation: fade 1.2s linear infinite;
+    }
+
+    .spinner div:nth-child(1) {
+      transform: rotate(0deg);
+      animation-delay: -1.1s;
+    }
+
+    .spinner div:nth-child(2) {
+      transform: rotate(30deg);
+      animation-delay: -1s;
+    }
+
+    .spinner div:nth-child(3) {
+      transform: rotate(60deg);
+      animation-delay: -0.9s;
+    }
+
+    .spinner div:nth-child(4) {
+      transform: rotate(90deg);
+      animation-delay: -0.8s;
+    }
+
+    .spinner div:nth-child(5) {
+      transform: rotate(120deg);
+      animation-delay: -0.7s;
+    }
+
+    .spinner div:nth-child(6) {
+      transform: rotate(150deg);
+      animation-delay: -0.6s;
+    }
+
+    .spinner div:nth-child(7) {
+      transform: rotate(180deg);
+      animation-delay: -0.5s;
+    }
+
+    .spinner div:nth-child(8) {
+      transform: rotate(210deg);
+      animation-delay: -0.4s;
+    }
+
+    .spinner div:nth-child(9) {
+      transform: rotate(240deg);
+      animation-delay: -0.3s;
+    }
+
+    .spinner div:nth-child(10) {
+      transform: rotate(270deg);
+      animation-delay: -0.2s;
+    }
+
+    .spinner div:nth-child(11) {
+      transform: rotate(300deg);
+      animation-delay: -0.1s;
+    }
+
+    .spinner div:nth-child(12) {
+      transform: rotate(330deg);
+      animation-delay: 0s;
+    }
+
+    @keyframes fade {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.15;
+      }
+    }
+
+    /* Main Content */
+    .content {
+      padding: 60px;
+      text-align: center;
+    }
+
+    .con {
+      font-size: 10px;
+    }
+
+    .hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    h1 {
+      padding-top: 50px;
+    }
+
+    .orcon {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    hr {
+      width: 300px;
+      border-top: 1px solid rgb(255, 255, 255);
+    }
+
+    .container a {
+      font-size: small;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 500px;
+      height: 700px;
+      padding: 80px;
+      gap: 40px;
+      border: 1px solid rgb(243, 243, 243);
+      border-radius: 25px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+    }
+
+    .continue {
+      border-radius: 10px;
+      padding: 20px;
+      border: none;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .continue:hover {
+      background-color: rgb(0, 0, 0);
+      color: white;
+    }
+
+    .container p {
+      color: grey;
+      font-size: 12px;
+    }
+    
+    /* Policy Modal */
+    #policyModalOverlay {
+        position: fixed; inset: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
+        z-index: 99999; display: flex; justify-content: center; align-items: center;
+        opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    #policyModalOverlay.active { opacity: 1; pointer-events: auto; }
+    .policy-card {
+        background: #fff; width: 90%; max-width: 800px; height: 85vh; border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1); display: flex; flex-direction: column;
+        transform: scale(0.95) translateY(20px); transition: transform 0.4s ease;
+    }
+    #policyModalOverlay.active .policy-card { transform: scale(1) translateY(0); }
+    .policy-header {
+        display: flex; justify-content: space-between; align-items: center; padding: 20px 30px;
+        border-bottom: 1px solid #eee;
+    }
+    .policy-header h2 { font-size: 20px; color: #333; margin: 0; padding: 0;}
+    .policy-header button {
+        background: #f1f1f1; border: none; width: 36px; height: 36px; border-radius: 50%;
+        font-size: 20px; cursor: pointer; color: #555; transition: 0.3s; line-height: 1;
+    }
+    .policy-header button:hover { background: #e1e1e1; color: #000; }
+    .policy-body {
+        padding: 30px; overflow-y: auto; text-align: left;
+    }
+    .policy-body h2 { font-size: 18px; color: #0177ED; margin: 25px 0 10px 0; }
+    .policy-body h1 { font-size: 30px; padding-top: 0; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; color: #000;}
+    .policy-body p, .policy-body li { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 10px; }
+    .policy-body ul { margin-left: 20px; margin-bottom: 10px; }
+    .policy-body hr { width: 100%; border: none; border-top: 1px solid #eaeaea; margin: 40px 0; }
+    .policy-body a { color: #0177ED; text-decoration: none; }
+  </style>
+</head>
+
+<body>
+  <div id="loader">
+    <div class="spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- body -->
+
+  <div class="orcon">
+    <form action="/auth/google" method="GET" class="container">
+      <img src="../images/logo.png" alt="" width="100">
+      <h1 align="center">Login With Your VIT Mail Id</h1>
+      <button class="continue"><span><img src="../images/google.png" alt="" width="10"> Continue with
+          Google</span></button>
+      <p>Only Institutional Access</p>
+      <hr>
+      <p class="con">By continuing ,<br> You agree with our <span style="color:#0177ED; cursor:pointer; font-weight: 600;" onclick="showPolicyPopup()">Terms & Privacy Policy</span></p>
+      <a href="/help">Help?</a>
+    </form>
+  </div>
+  
+  <div id="policyModalOverlay">
+     <div class="policy-card">
+         <div class="policy-header">
+             <h2>Legal & Privacy</h2>
+             <button onclick="closePolicyPopup()">×</button>
+         </div>
+         <div class="policy-body">
+             <h1>Privacy Policy</h1>
+             <p class="effective-date" style="font-size: 14px; color: #888; font-style: italic; margin-bottom: 20px;">Effective Date: April 22, 2026</p>
+             
+             <p>At <strong>Vitly</strong>, we value the trust you place in us. Protecting your privacy and keeping your information secure is one of our highest priorities. This Privacy Policy explains what information we collect, why we collect it, and how we use it to provide a safe and reliable experience for students using our platform.</p>
+             <p>By using Vitly, you agree to the terms described below.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">1. Information We Collect</h2>
+             <p>To make Vitly secure, personalized, and useful, we may collect limited information such as:</p>
+             <p><strong>Account Information</strong></p>
+             <p>When you sign in through Google, we may collect:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Your name</li>
+                 <li>Verified email address</li>
+                 <li>Profile picture</li>
+                 <li>Basic account identifier</li>
+             </ul>
+             
+             <p><strong>Usage Information</strong></p>
+             <p>To improve our services, we may automatically collect:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Device and browser type</li>
+                 <li>Pages visited</li>
+                 <li>Time spent on pages</li>
+                 <li>General location based on IP address</li>
+                 <li>Website performance data</li>
+             </ul>
+             
+             <p><strong>Content You Provide</strong></p>
+             <p>If you upload notes, papers, planner data, forms, or marketplace listings, we collect only the information you choose to submit.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">2. Why We Use Your Information</h2>
+             <p>We use your information only to improve your experience and operate the platform efficiently. This includes:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Giving you secure access to student features</li>
+                 <li>Verifying eligible users</li>
+                 <li>Personalizing your dashboard and tools</li>
+                 <li>Improving speed, design, and functionality</li>
+                 <li>Preventing spam, fraud, and misuse</li>
+                 <li>Sending important service updates</li>
+             </ul>
+             <p>We do <strong>not</strong> sell your personal information to advertisers or third parties.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">3. Secure Google Login</h2>
+             <p>Vitly uses Google Sign In to make access simple and secure. We only receive basic profile information that you approve during login.</p>
+             <p>Your Google password is never visible to us and is never stored on our servers.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">4. Data Protection</h2>
+             <p>We use reasonable technical safeguards and security practices to protect user data. While no system on the internet can guarantee absolute security, we continuously work to keep the platform safe and reliable.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">5. Limited Sharing of Information</h2>
+             <p>Your information is treated with respect and confidentiality. We may only share data when required:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>To comply with legal obligations</li>
+                 <li>To prevent fraud or abuse</li>
+                 <li>With trusted service providers helping operate the platform</li>
+                 <li>With your permission</li>
+             </ul>
+             <p>We never trade or sell student data.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">6. Cookies and Sessions</h2>
+             <p>Vitly may use cookies or secure sessions to:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Keep you logged in</li>
+                 <li>Remember preferences</li>
+                 <li>Improve performance</li>
+                 <li>Understand traffic trends</li>
+             </ul>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">7. Your Control and Rights</h2>
+             <p>You remain in control of your information. You may request to:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Access your stored data</li>
+                 <li>Correct inaccurate information</li>
+                 <li>Delete your account data</li>
+                 <li>Stop using the platform at any time</li>
+             </ul>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">8. Policy Updates</h2>
+             <p>As Vitly grows and improves, this Privacy Policy may be updated to reflect new features or legal requirements. Any updates will be posted clearly on this page.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">9. Contact Us</h2>
+             <p>If you have any questions, concerns, or privacy requests, please contact us:<br>
+             <strong>Vitly Support</strong><br>
+             Email: <a href="mailto:simhadrirahul3@gmail.com" style="color: #0177ED; text-decoration: none;">simhadrirahul3@gmail.com</a></p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">10. Our Commitment</h2>
+             <p>Vitly was built to help students, not exploit them. We believe privacy, transparency, and trust should be part of every great platform. We are committed to handling your information responsibly and keeping your experience secure.</p>
+             
+             <hr style="width: 100%; border: none; border-top: 1px solid #eaeaea; margin: 40px 0;">
+             
+             <h1 style="font-size: 30px; padding-top: 0; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; color: #000;">Terms and Conditions</h1>
+             <p style="font-size: 14px; color: #888; font-style: italic; margin-bottom: 20px;">Effective Date: April 22, 2026</p>
+             
+             <p>Welcome to <strong>Vitly</strong>. These Terms and Conditions govern your access to and use of the Vitly website, tools, and services. By using Vitly, you agree to comply with these terms. If you do not agree, please discontinue use of the platform.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">1. Purpose of the Platform</h2>
+             <p>Vitly is designed to provide useful tools and resources for students, including academic utilities, planners, calculators, previous year papers, and related student-focused features.</p>
+             <p>We aim to offer a helpful and reliable platform, but use of all tools and content is at your own discretion.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">2. Eligibility to Use</h2>
+             <p>By using Vitly, you confirm that:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>You are legally allowed to use online services in your region</li>
+                 <li>Information provided by you is accurate</li>
+                 <li>You will use the platform responsibly and lawfully</li>
+                 <li>You will not misuse student-only features or impersonate another person</li>
+             </ul>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">3. User Accounts</h2>
+             <p>Some features may require login through third-party authentication services such as Google.</p>
+             <p>You are responsible for:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Maintaining access to your account</li>
+                 <li>Logging out from shared devices</li>
+                 <li>Any activity performed through your account</li>
+             </ul>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">4. Acceptable Use</h2>
+             <p>You agree not to use Vitly for any of the following:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Unlawful activity</li>
+                 <li>Harassment, abuse, or threatening behavior</li>
+                 <li>Uploading malicious files or harmful code</li>
+                 <li>Attempting unauthorized access to systems or data</li>
+                 <li>Spamming, scraping, or exploiting the platform</li>
+                 <li>Impersonating individuals or organizations</li>
+                 <li>Posting misleading or fraudulent content</li>
+             </ul>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">5. Academic Tools and Accuracy</h2>
+             <p>Vitly may provide calculators, planners, schedules, academic resources, and informational tools. While we aim for accuracy, we do not guarantee that all results, calculations, schedules, or academic materials are error-free or officially endorsed. Users should verify important academic decisions independently.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">6. User Content</h2>
+             <p>If you submit notes, listings, comments, files, or other content, you confirm that:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>You own the content or have permission to share it</li>
+                 <li>The content does not violate any law or third-party rights</li>
+                 <li>The content is not abusive, harmful, or misleading</li>
+             </ul>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">7. Intellectual Property</h2>
+             <p>The Vitly platform, branding, design, features, and original content are protected by applicable intellectual property laws.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">8. Third Party Services</h2>
+             <p>Vitly may integrate or rely on third-party services such as authentication providers, hosting platforms, analytics tools, or external links. We are not responsible for the policies, availability, or practices of third-party services.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">9. Limitation of Liability</h2>
+             <p>Vitly is provided on an as available basis. To the fullest extent permitted by law, Vitly shall not be liable for:</p>
+             <ul style="margin-left: 20px; margin-bottom: 15px;">
+                 <li>Loss of data</li>
+                 <li>Academic decisions based on tool outputs</li>
+                 <li>Temporary downtime</li>
+                 <li>User-generated content</li>
+                 <li>Indirect or incidental damages arising from platform use</li>
+             </ul>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">10. Privacy</h2>
+             <p>Your use of Vitly is also governed by our Privacy Policy, which explains how information is collected and used.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">11. Suspension or Termination</h2>
+             <p>We reserve the right to suspend, restrict, or terminate access to any user who violates these Terms or harms the platform or its users.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">12. Changes to Terms</h2>
+             <p>Vitly may update these Terms and Conditions from time to time. Continued use of the platform after updates means acceptance of the revised terms.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">13. Governing Use</h2>
+             <p>Users are expected to comply with all applicable local laws while using the platform.</p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">14. Contact Us</h2>
+             <p>For questions regarding these Terms and Conditions:<br>
+             <strong>Vitly Support</strong><br>
+             Email: <a href="mailto:simhadrirahul3@gmail.com" style="color: #0177ED; text-decoration: none;">simhadrirahul3@gmail.com</a></p>
+             
+             <h2 style="font-size: 20px; margin: 30px 0 10px 0; color: #0177ED;">15. Final Note</h2>
+             <p>Vitly was created to support students with useful tools and resources. We ask all users to use the platform responsibly, respectfully, and fairly so it remains helpful for everyone.</p>
+         </div>
+     </div>
+  </div>
+
+
+  <script>
+    function showPolicyPopup() {
+        document.getElementById('policyModalOverlay').classList.add('active');
+    }
+    function closePolicyPopup() {
+        document.getElementById('policyModalOverlay').classList.remove('active');
+    }
+    
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").classList.add("hide");
+      }, 500);
+    });
+  </script>
+
+</body>
+
+</html>
