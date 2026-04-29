@@ -1,4 +1,4 @@
-import pool from "./db.js";
+
 
 require("dotenv").config();
 
