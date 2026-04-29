@@ -25,8 +25,7 @@
         #loader {
             position: fixed;
             inset: 0;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
+            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -44,7 +43,7 @@
             position: absolute;
             width: 3px;
             height: 10px;
-            background: #111;
+            background: #fff;
             border-radius: 10px;
             top: 2px;
             left: 15px;
@@ -322,11 +321,12 @@
             display: none;
             background: transparent;
             border: none;
-            font-size: 28px;
             cursor: pointer;
             color: #333;
             margin-left: auto;
             z-index: 10;
+            align-items: center;
+            justify-content: center;
         }
 
         .mobile-menu-overlay {
@@ -483,20 +483,22 @@
         </div>
     </div>
     <div id="greetingOverlay"
-        style="position: fixed; inset: 0; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); z-index: 9998; display: flex; justify-content: center; align-items: center; opacity: 1; transition: opacity 0.8s ease;">
+        style="position: fixed; inset: 0; background: #000; z-index: 9998; display: flex; justify-content: center; align-items: center; opacity: 1; transition: opacity 0.8s ease;">
         <h1 id="greetingText"
-            style="font-size: 48px; color: #0177ED; transform: translateY(20px); opacity: 0; transition: all 0.8s ease; font-weight: 700; text-align: center;">
+            style="font-size: 64px; color: #fff; transform: translateY(20px); opacity: 0; transition: all 0.8s ease; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 2px;">
         </h1>
     </div>
 
     <nav class="navbar">
         <img src="../images/mainlogo.png" alt="" width="50"
             style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
-        <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+        <button class="hamburger" onclick="toggleMobileMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
         <button onclick="window.location.href='/dashboard'">Home</button>
         <button onclick="showToast('This feature will be added soon.')">Orders</button>
         <button onclick="window.location.href='/cgpa_Calc'">CGPA Calculator</button>
-        <button onclick="showToast('This feature will be added soon.')">Previous Year Papers</button>
+        <button onclick="window.location.href='/papers'">Previous Year Papers</button>
         <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
         <button onclick="window.location.href='/profile'">Profile</button>
         <button class="logout" onclick="logout()">Logout</button>
@@ -523,10 +525,9 @@
                 by subject, semester, and course to understand question patterns, important topics, and difficulty
                 level. A simple and reliable way to revise better, practice with confidence, and save time during exam
                 season.</p>
-            <span><button class="know">View Previous Year Papers</button><button class="nonknow">View
+            <span><button class="know" onclick="window.location.href='/papers'">View Previous Year Papers</button><button class="nonknow">View
                     Courses</button></span>
             <p id="res"></p>
-            <p class="danger">This Feature will be added soon.</p>
         </div>
         <br>
         <div class="first">
@@ -809,7 +810,9 @@
                     return btn.outerHTML.replace('onclick="', 'onclick="toggleMobileMenu(); ');
                 }).join('');
                 menu.innerHTML = `
-                    <button class="close-menu" onclick="toggleMobileMenu()">×</button>
+                    <button class="close-menu" onclick="toggleMobileMenu()">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
                     ${navButtons}
                 `;
                 document.body.appendChild(menu);

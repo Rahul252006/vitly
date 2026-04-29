@@ -4,6 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
+const db = require("./db");
 
 const app = express();
 app.use(express.static(__dirname));
@@ -108,6 +109,93 @@ app.get("/FFCS", function (req, res) {
 
 app.get("/policy", function (req, res) {
    res.sendFile(path.join(__dirname, "Frontend", "policy.html"));
+});
+
+app.get("/papers", function (req, res) {
+   if (req.isAuthenticated()) {
+      return res.sendFile(path.join(__dirname, "Frontend", "papers.html"));
+   }
+   res.redirect("/");
+});
+
+app.get("/paper-preview", (req, res) => {
+   if (req.isAuthenticated()) {
+      return res.sendFile(path.join(__dirname, "Frontend", "paper_preview.html"));
+   }
+   res.redirect("/");
+});
+
+// Fetch all papers from the database
+app.get("/api/papers", async (req, res) => {
+   if (req.isAuthenticated()) {
+      try {
+         // We omit fileUrl here to keep the listing response small
+         const [rows] = await db.execute("SELECT courseCode, subject, year, slot, examType, uploadedBy, displayName, createdAt FROM papers ORDER BY createdAt DESC");
+         res.json(rows);
+      } catch (error) {
+         console.error("Database error:", error);
+         res.status(500).json({ error: "Failed to fetch papers from database" });
+      }
+   } else {
+      res.status(401).json({ error: "Not authenticated" });
+   }
+});
+
+// Fetch single paper content by composite key
+app.get("/api/paper-details", async (req, res) => {
+   if (req.isAuthenticated()) {
+      const { courseCode, slot, year, examType } = req.query;
+      try {
+         const [rows] = await db.execute(
+            "SELECT fileUrl FROM papers WHERE courseCode = ? AND slot = ? AND year = ? AND examType = ?",
+            [courseCode, slot, year, examType]
+         );
+
+         if (rows.length > 0) {
+            res.json(rows[0]);
+         } else {
+            res.status(404).json({ error: "Paper not found" });
+         }
+      } catch (error) {
+         console.error("Database error:", error);
+         res.status(500).json({ error: "Failed to fetch paper details" });
+      }
+   } else {
+      res.status(401).json({ error: "Not authenticated" });
+   }
+});
+
+// Upload a new paper to the database
+app.post("/api/upload-paper", express.json({ limit: '50mb' }), async (req, res) => {
+   if (req.isAuthenticated()) {
+      const { courseCode, subject, year, slot, examType, fileData, showName } = req.body;
+      const uploadedBy = showName ? req.user.displayName : "Anonymous";
+
+      try {
+         // Check for redundancy based on composite primary key
+         const [existing] = await db.execute(
+            "SELECT 1 FROM papers WHERE courseCode = ? AND slot = ? AND year = ? AND examType = ?",
+            [courseCode, slot, year, examType]
+         );
+
+         if (existing.length > 0) {
+            return res.status(400).json({ error: "Paper already exists for this subject and year." });
+         }
+
+         // Insert new paper
+         await db.execute(
+            "INSERT INTO papers (courseCode, subject, year, slot, examType, uploadedBy, displayName, fileUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            [courseCode, subject, year, slot, examType, uploadedBy, showName, fileData]
+         );
+
+         res.json({ success: true });
+      } catch (error) {
+         console.error("Database error:", error);
+         res.status(500).json({ error: "Failed to save paper to database" });
+      }
+   } else {
+      res.status(401).json({ error: "Not authenticated" });
+   }
 });
 
 app.get('/.well-known/appspecific/com.chrome.devtools.json', (req, res) => {

@@ -416,16 +416,7 @@
             letter-spacing: 5px;
         }
 
-        .hamburger {
-            display: none;
-            background: transparent;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: #333;
-            margin-left: auto;
-            z-index: 10;
-        }
+        .hamburger { display: none; background: transparent; border: none; cursor: pointer; color: #333; margin-left: auto; z-index: 10; align-items: center; justify-content: center; }
 
         .mobile-menu-overlay {
             position: fixed;
@@ -591,11 +582,13 @@
     <nav class="navbar">
         <img src="../images/mainlogo.png" alt="" width="50"
             style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
-        <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+        <button class="hamburger" onclick="toggleMobileMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
         <button onclick="window.location.href='/dashboard'">Home</button>
         <button onclick="showToast('This feature will be added soon.')">Orders</button>
         <button onclick="window.location.href='/cgpa_Calc'">CGPA Calculator</button>
-        <button onclick="showToast('This feature will be added soon.')">Previous Year Papers</button>
+        <button onclick="window.location.href='/papers'">Previous Year Papers</button>
         <button onclick="window.location.href='/FFCS'" class="ffcs_active">FFCS Planner</button>
         <button onclick="window.location.href='/profile'">Profile</button>
         <button class="logout" onclick="logout()">Logout</button>
@@ -930,7 +923,9 @@
                     return btn.outerHTML.replace('onclick="', 'onclick="toggleMobileMenu(); ');
                 }).join('');
                 menu.innerHTML = `
-                    <button class="close-menu" onclick="toggleMobileMenu()">×</button>
+                    <button class="close-menu" onclick="toggleMobileMenu()">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
                     ${navButtons}
                 `;
                 document.body.appendChild(menu);
