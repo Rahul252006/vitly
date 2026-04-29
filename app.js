@@ -1,3 +1,5 @@
+import pool from "./db.js";
+
 require("dotenv").config();
 
 const express = require("express");
