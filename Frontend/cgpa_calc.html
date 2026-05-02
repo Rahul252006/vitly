@@ -13,7 +13,18 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        /* Prevent selection on interactive elements */
+        button, a, img, .btn, .row-action, .hamburger, .toggle-btn {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Accessibile focus states */
+        :focus { outline: none; }
+        :focus-visible { outline: 2px solid #0177ED; outline-offset: 2px; }
 
         body {
             margin: 0;
@@ -212,31 +223,49 @@
         .toggle-group {
             display: flex;
             justify-content: center;
-            gap: 15px;
             margin-bottom: 30px;
             background: #f1f1f1;
             padding: 5px;
             border-radius: 40px;
             width: max-content;
             margin: 0 auto 30px auto;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .toggle-btn {
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 12px 30px;
+            border-radius: 35px;
             border: none;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s ease;
-            color: #555;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #777;
             background: transparent;
+            position: relative;
+            z-index: 2;
+            transform: scale(0.9);
+            opacity: 0.8;
         }
 
         .toggle-btn.active {
-            background: #0177ED;
             color: white;
-            box-shadow: 0 4px 12px rgba(1, 119, 237, 0.3);
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            height: calc(100% - 10px);
+            width: calc(50% - 5px);
+            background: #0177ED;
+            border-radius: 35px;
+            top: 5px;
+            left: 5px;
+            z-index: 1;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(1, 119, 237, 0.3);
         }
 
         .calc-section {
@@ -455,21 +484,93 @@
         .mobile-menu-overlay .close-menu { position: absolute; top: 20px; right: 30px; font-size: 40px; }
 
         @media (max-width: 768px) {
-            .navbar { justify-content: flex-end; padding-right: 30px; overflow: visible; height: 60px;}
-            .navbar img { position: absolute !important; left: 20px !important; top: 50% !important; transform: translateY(-50%) !important; }
+            /* Mobile loader: blurred white */
+            #loader {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(20px);
+            }
+            .spinner div {
+                background: #333;
+            }
+
+            /* Mobile navbar: floating pill */
+            .navbar {
+                width: calc(100% - 40px);
+                max-width: 450px;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 15px;
+                border-radius: 50px;
+                height: 60px;
+                padding: 0 25px;
+                justify-content: space-between;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+            }
+            .navbar img {
+                position: relative !important;
+                left: 0 !important;
+                top: 0 !important;
+                transform: none !important;
+                width: 35px;
+            }
             .navbar button:not(.hamburger) { display: none !important; }
             .hamburger { display: block; }
-            
-            .main-wrapper { padding: 0 15px 40px 15px; margin-top: 80px; }
+
+            /* Mobile dropdown menu */
+            .mobile-menu-overlay {
+                top: 85px;
+                right: 20px;
+                left: auto;
+                width: 260px;
+                height: auto;
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(20px);
+                align-items: flex-start;
+                transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                gap: 12px;
+                padding: 25px 20px;
+                border-radius: 25px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                transform: translateY(-20px) scale(0.95);
+            }
+            .mobile-menu-overlay.active { transform: translateY(0) scale(1); }
+            .mobile-menu-overlay button {
+                font-size: 15px;
+                white-space: nowrap;
+                width: 100%;
+                text-align: left;
+                padding: 8px 0;
+            }
+            .mobile-menu-overlay .close-menu { display: none; }
+
+            .main-wrapper { padding: 100px 15px 40px 15px; margin-top: 0; }
             .title { font-size: 28px !important; }
             
             .calc-box { padding: 20px; }
-            .headers-row, .cgpa-headers-row { display: none; /* Hide multi column headers on mobile as they squish */ }
+            .headers-row, .cgpa-headers-row { display: none; }
             
-            .dynamic-row, .cgpa-dynamic-row { display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #ddd; padding-bottom: 15px; position:relative; padding-right: 35px; box-sizing: border-box; }
-            .dynamic-row input, .cgpa-dynamic-row input { width: 100%; box-sizing: border-box; }
-            .dynamic-row select, .cgpa-dynamic-row select { width: 100%; box-sizing: border-box; }
-            .row-action { position: absolute; right: 5px; top: 5px; height: 35px; width: 35px; }
+            /* Grid layout for rows: top spanning, bottom side-by-side */
+            .dynamic-row, .cgpa-dynamic-row {
+                display: grid;
+                grid-template-areas: 
+                    "top top"
+                    "left right";
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                border-bottom: 1px solid #eee;
+                padding: 15px 0;
+                position: relative;
+                padding-right: 40px;
+                box-sizing: border-box;
+            }
+            .dynamic-row > *:nth-child(1), .cgpa-dynamic-row > *:nth-child(1) { grid-area: top; }
+            .dynamic-row > *:nth-child(2), .cgpa-dynamic-row > *:nth-child(2) { grid-area: left; }
+            .dynamic-row > *:nth-child(3), .cgpa-dynamic-row > *:nth-child(3) { grid-area: right; }
+            .dynamic-row input, .cgpa-dynamic-row input,
+            .dynamic-row select, .cgpa-dynamic-row select { width: 100% !important; box-sizing: border-box; }
+            .row-action { position: absolute; right: 0; top: 50%; transform: translateY(-50%); height: 32px; width: 32px; }
             
             .form-control { padding: 10px; font-size: 12px; }
             .buttons-bar { flex-direction: column; gap: 15px; }
@@ -517,8 +618,8 @@
         <div class="calc-box">
             <!-- Toggle UI -->
             <div class="toggle-group">
-                <button class="toggle-btn active" onclick="switchTab('gpa-sect')" id="btn-gpa-sect">Semester
-                    GPA</button>
+                <div class="toggle-slider" id="tab-slider"></div>
+                <button class="toggle-btn active" onclick="switchTab('gpa-sect')" id="btn-gpa-sect">Semester GPA</button>
                 <button class="toggle-btn" onclick="switchTab('cgpa-sect')" id="btn-cgpa-sect">Cumulative CGPA</button>
             </div>
 
@@ -648,6 +749,15 @@
 
             document.getElementById(tabId).classList.add('active');
             document.getElementById('btn-' + tabId).classList.add('active');
+
+            // Slide the pill
+            const slider = document.getElementById('tab-slider');
+            if (tabId === 'gpa-sect') {
+                slider.style.left = '5px';
+            } else {
+                const containerWidth = document.querySelector('.toggle-group').offsetWidth;
+                slider.style.left = (containerWidth / 2) + 'px';
+            }
         }
 
         // Row Generation Elements
