@@ -17,19 +17,35 @@
         }
 
         /* Prevent selection on interactive elements */
-        button, a, img, .know, .nonknow, .hamburger {
+        button,
+        a,
+        img,
+        .know,
+        .nonknow,
+        .hamburger {
             user-select: none;
             -webkit-user-drag: none;
         }
 
         /* Accessibile focus states */
-        :focus { outline: none; }
-        :focus-visible { outline: 2px solid #0177ED; outline-offset: 2px; }
+        :focus {
+            outline: none;
+        }
+
+        :focus-visible {
+            outline: 2px solid #0177ED;
+            outline-offset: 2px;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
 
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            overflow-x: hidden;
         }
 
         /* Fullscreen Loader */
@@ -346,8 +362,8 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.331);
+            backdrop-filter: blur(40px);
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -398,11 +414,13 @@
         }
 
         @media (max-width: 768px) {
+
             /* Mobile loader: blurred white */
             #loader {
                 background: rgba(255, 255, 255, 0.7);
                 backdrop-filter: blur(20px);
             }
+
             .spinner div {
                 background: #333;
             }
@@ -419,7 +437,7 @@
                 padding: 0 25px;
                 justify-content: space-between;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-                border: 1px solid rgba(255, 255, 255, 0.3);
+                border: 1px solid rgb(255, 255, 255);
             }
 
             .navbar img {
@@ -441,24 +459,27 @@
             /* Mobile dropdown menu */
             .mobile-menu-overlay {
                 top: 85px;
-                right: 20px;
+                right: 32px;
                 left: auto;
                 width: 260px;
                 height: auto;
-                background: rgba(255, 255, 255, 0.85);
-                backdrop-filter: blur(20px);
+                background: rgba(255, 255, 255, 0.65);
+                backdrop-filter: blur(40px);
                 align-items: flex-start;
                 transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                 gap: 12px;
                 padding: 25px 20px;
                 border-radius: 25px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-                border: 1px solid rgba(255, 255, 255, 0.3);
+
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgb(255, 255, 255);
                 transform: translateY(-20px) scale(0.95);
             }
+
             .mobile-menu-overlay.active {
                 transform: translateY(0) scale(1);
             }
+
             .mobile-menu-overlay button {
                 font-size: 15px;
                 white-space: nowrap;
@@ -466,6 +487,7 @@
                 text-align: left;
                 padding: 8px 0;
             }
+
             .mobile-menu-overlay .close-menu {
                 display: none;
             }
@@ -489,7 +511,12 @@
                 text-align: center;
             }
 
-            .photo,
+            .photo {
+
+                transform-style: preserve-3d;
+                transform: perspective(1000px) rotateX(40deg);
+            }
+
             .cgpaphoto {
                 transform: perspective(1000px) rotateX(10deg);
                 margin-top: 20px;
@@ -555,7 +582,12 @@
         <img src="../images/mainlogo.png" alt="" width="50"
             style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
         <button class="hamburger" onclick="toggleMobileMenu()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
         </button>
         <button onclick="window.location.href='/dashboard'">Home</button>
         <button onclick="showToast('This feature will be added soon.')">Orders</button>
@@ -587,7 +619,8 @@
                 by subject, semester, and course to understand question patterns, important topics, and difficulty
                 level. A simple and reliable way to revise better, practice with confidence, and save time during exam
                 season.</p>
-            <span><button class="know" onclick="window.location.href='/papers'">View Previous Year Papers</button><button class="nonknow">View
+            <span><button class="know" onclick="window.location.href='/papers'">View Previous Year
+                    Papers</button><button class="nonknow">View
                     Courses</button></span>
             <p id="res"></p>
         </div>
@@ -680,6 +713,7 @@
             text-decoration: none;
             transition: 0.3s;
         }
+
         .footer-avatar {
             width: 20px;
             height: 20px;
@@ -688,11 +722,22 @@
             border: 1px solid #fff;
             animation: footerFloat 2.5s ease-in-out infinite;
         }
+
         @keyframes footerFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
         }
-        .footer-avatar-wrap:hover { opacity: 0.8; }
+
+        .footer-avatar-wrap:hover {
+            opacity: 0.8;
+        }
 
         /* About Us Modal */
         #aboutUsOverlay {

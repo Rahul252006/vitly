@@ -23,6 +23,12 @@
         /* Accessibile focus states */
         :focus { outline: none; }
         :focus-visible { outline: 2px solid #0177ED; outline-offset: 2px; }
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             background-color: #F5F5F7;
@@ -82,7 +88,9 @@
                 padding: 0 25px;
                 justify-content: space-between;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-                border: 1px solid rgba(255, 255, 255, 0.3);
+                border: 1px solid #fff;
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(20px);
             }
             .navbar img {
                 position: relative !important;

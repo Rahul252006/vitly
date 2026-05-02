@@ -38,6 +38,12 @@
         :focus { outline: none; }
         :focus-visible { outline: 2px solid #0177ED; outline-offset: 2px; }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
         body {
             background: var(--bg-color);
             color: var(--text-primary);
@@ -333,7 +339,9 @@
                 padding: 0 25px;
                 justify-content: space-between;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-                border: 1px solid rgba(255, 255, 255, 0.3);
+                border: 1px solid #fff;
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(20px);
             }
 
             .navbar img {
@@ -355,19 +363,19 @@
             /* Mobile dropdown menu */
             .mobile-menu-overlay {
                 top: 85px;
-                right: 20px;
+                right: 32px;
                 left: auto;
                 width: 260px;
                 height: auto;
-                background: rgba(255, 255, 255, 0.85);
-                backdrop-filter: blur(20px);
+                background: rgba(255, 255, 255, 0.65);
+                backdrop-filter: blur(40px);
                 align-items: flex-start;
                 transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                 gap: 12px;
                 padding: 25px 20px;
                 border-radius: 25px;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-                border: 1px solid rgba(255, 255, 255, 0.3);
+                border: 1px solid #fff;
                 transform: translateY(-20px) scale(0.95);
             }
             .mobile-menu-overlay.active {
