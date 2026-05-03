@@ -11,21 +11,91 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: #ffffff;
-
             color: #111;
             overflow-x: hidden;
+            margin: 0;
         }
 
+        button, a, img {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Navbar Desktop */
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.312);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar button {
+            background-color: transparent;
+            border: none;
+            color: rgb(87, 87, 87);
+            cursor: pointer;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: 350;
+            font-size: 13px;
+        }
+
+        .hamburger { display: none; background: transparent; border: none; cursor: pointer; color: #333; margin-left: auto; z-index: 10; align-items: center; justify-content: center; }
+
+        .mobile-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px);
+            z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.4s ease; gap: 20px;
+        }
+        .mobile-menu-overlay.active { opacity: 1; pointer-events: auto; }
+        .mobile-menu-overlay button {
+            background: transparent; border: none; font-size: 20px; font-weight: 500; color: #333; cursor: pointer; transition: 0.3s;
+        }
+        .mobile-menu-overlay .close-menu { position: absolute; top: 20px; right: 30px; font-size: 40px; }
+
+        /* Elite Logo Navbar Style */
+        .elite-nav-btn {
+            background: none !important;
+            border: none !important;
+            padding: 5px 10px !important;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+            transition: transform 0.2s;
+            overflow: visible !important;
+        }
+        .elite-nav-btn:hover { transform: scale(1.05); }
+        .elite-nav-btn:focus, .elite-nav-btn:active, .elite-nav-btn:focus-visible { outline: none !important; box-shadow: none !important; -webkit-tap-highlight-color: transparent !important; }
+        .elite-logo-stack { position: relative; width: 65px; height: 35px; transform-style: preserve-3d; }
+        .elite-logo-stack img { position: absolute !important; top: 0; left: 0; width: 100% !important; height: auto !important; transform: none !important; transition: none !important; }
+        .elite-logo-stack .bg-image { z-index: 1; }
+        .elite-logo-stack .top { z-index: 2; }
+        @keyframes miniFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+        .elite-logo-stack .floating { animation: miniFloat 2s ease-in-out infinite !important; }
+
+        /* Main Content */
         .whole-logo {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             min-height: 100vh;
+            padding-top: 80px;
         }
 
         .elite-logo {
@@ -41,14 +111,8 @@
             left: 0;
             width: 100%;
         }
-
-        .bg-image {
-            z-index: 1;
-        }
-
-        .top {
-            z-index: 2;
-        }
+        .bg-image { z-index: 1; }
+        .top { z-index: 2; }
 
         .container h2 {
             font-size: 20px;
@@ -58,11 +122,78 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile navbar: floating pill */
+            .navbar {
+                width: calc(100% - 40px);
+                max-width: 450px;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 15px;
+                border-radius: 50px;
+                height: 60px;
+                padding: 0 25px;
+                justify-content: space-between;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+                border: 1px solid #fff;
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(20px);
+            }
+            .navbar img { position: relative !important; left: 0 !important; top: 0 !important; transform: none !important; width: 35px; }
+            .navbar button:not(.hamburger) { display: none !important; }
+            .hamburger { display: block; }
+
+            .mobile-menu-overlay {
+                top: 85px; right: 32px; left: auto; width: 260px; height: auto;
+                background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(40px);
+                align-items: flex-start; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                gap: 12px; padding: 25px 20px; border-radius: 25px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid #fff;
+                transform: translateY(-20px) scale(0.95);
+            }
+            .mobile-menu-overlay.active { transform: translateY(0) scale(1); }
+            .mobile-menu-overlay button { font-size: 15px; white-space: nowrap; width: 100%; text-align: left; padding: 8px 0; }
+            .mobile-menu-overlay .close-menu { display: none; }
+
+            /* Elite Content Mobile Adjustments */
+            .elite-logo {
+                width: 300px;
+                height: 200px;
+                margin-bottom: -20px;
+            }
+            .container h2 {
+                font-size: 16px;
+                padding: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <nav class="navbar">
+        <img src="../images/mainlogo.png" alt="" width="50" onclick="window.location.href='/dashboard'"
+            style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+        <button class="hamburger" onclick="toggleMobileMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <button onclick="window.location.href='/dashboard'">Home</button>
+        <button class="elite-nav-btn" onclick="window.location.href='/elite'">
+            <div class="elite-logo-stack">
+                <img src="../images/ELITE.png" alt="" class="top">
+                <img src="../images/VITL.png" alt="" class="bg-image">
+                <img src="../images/FLASHLOGO.png" alt="" class="top floating">
+            </div>
+        </button>
+        <button onclick="window.location.href='/cgpa_Calc'">CGPA Calculator</button>
+        <button onclick="window.location.href='/papers'">Previous Year Papers</button>
+        <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
+        <button onclick="window.location.href='/profile'">Profile</button>
+        <button class="logout" onclick="window.location.href='/logout'">Logout</button>
+    </nav>
+
     <div class="whole-logo">
         <div class="elite-logo">
             <img src="../images/ELITE.png" alt="" class="top">
@@ -74,7 +205,28 @@
         </div>
     </div>
 
-
+    <script>
+        function toggleMobileMenu() {
+            let menu = document.getElementById('mobileMenuOverlay');
+            if (!menu) {
+                menu = document.createElement('div');
+                menu.id = 'mobileMenuOverlay';
+                menu.className = 'mobile-menu-overlay';
+                let navButtons = Array.from(document.querySelectorAll('.navbar button:not(.hamburger)')).map(btn => {
+                    return btn.outerHTML.replace('onclick="', 'onclick="toggleMobileMenu(); ');
+                }).join('');
+                menu.innerHTML = `
+                    <button class="close-menu" onclick="toggleMobileMenu()">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                    ${navButtons}
+                `;
+                document.body.appendChild(menu);
+                void menu.offsetWidth;
+            }
+            menu.classList.toggle('active');
+        }
+    </script>
 </body>
 
 </html>
