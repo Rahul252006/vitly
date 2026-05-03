@@ -627,6 +627,17 @@
             .mobile-menu-overlay .close-menu {
                 display: none;
             }
+            .mobile-menu-overlay button.logout {
+                margin-top: 10px;
+                color: #ff3b30;
+                background: rgba(255, 59, 48, 0.1);
+                padding: 12px 20px;
+                border-radius: 12px;
+                text-align: center;
+            }
+            .mobile-menu-overlay button.logout:hover {
+                background: rgba(255, 59, 48, 0.2);
+            }
 
             .header-section {
                 flex-direction: column;
@@ -673,7 +684,7 @@
                 left: 0 !important;
                 top: 0 !important;
                 transform: none !important;
-                width: 35px;
+                width: 50px;
             }
 
             .navbar button:not(.hamburger) {
@@ -842,7 +853,7 @@
         </div>
     </div>
     <nav class="navbar">
-        <img src="../images/mainlogo.png" alt="" width="50" onclick="window.location.href='/dashboard'"
+        <img src="../images/vitly-new-logo.png" alt="" width="50" onclick="window.location.href='/dashboard'"
             style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%); cursor: pointer;">
         <button class="hamburger" onclick="toggleMobileMenu()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

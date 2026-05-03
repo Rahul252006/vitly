@@ -491,7 +491,7 @@
                 left: 0 !important;
                 top: 0 !important;
                 transform: none !important;
-                width: 35px;
+                width: 50px;
             }
 
             .navbar button:not(.hamburger) {
@@ -543,7 +543,7 @@
                 text-align: center;
                 left: 0;
                 align-items: center;
-                min-height: auto;
+                min-height: 100vh;
             }
 
             .first p {
@@ -617,15 +617,9 @@
             <div></div>
         </div>
     </div>
-    <div id="greetingOverlay"
-        style="position: fixed; inset: 0; background: #000; z-index: 9998; display: flex; justify-content: center; align-items: center; opacity: 1; transition: opacity 0.8s ease;">
-        <h1 id="greetingText"
-            style="font-size: 64px; color: #fff; transform: translateY(20px); opacity: 0; transition: all 0.8s ease; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 2px;">
-        </h1>
-    </div>
 
     <nav class="navbar">
-        <img src="../images/mainlogo.png" alt="" width="50"
+        <img src="../images/vitly-new-logo.png" alt="" width="50"
             style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
         <button class="hamburger" onclick="toggleMobileMenu()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -651,7 +645,7 @@
     </nav>
     <main>
         <div class="first">
-            <img src="../images/mainlogo.png" alt="" width="500">
+            <video src="../images/basic-logo.mp4" width="500" style="max-width: 100%; height: auto;" autoplay muted playsinline disableRemotePlayback></video>
             <h1>Your All In One Platform</h1>
             <button class="know" onclick="goToCGPA()">Know More</button>
         </div>
@@ -925,37 +919,7 @@
     </div>
     <script>
         window.addEventListener("load", () => {
-            if (!sessionStorage.getItem('greeted')) {
-                fetch("/api/user")
-                    .then(res => res.json())
-                    .then(data => {
-                        const overlay = document.getElementById("greetingOverlay");
-                        const gText = document.getElementById("greetingText");
-
-                        if (data.name) {
-                            gText.innerText = "Welcome, " + data.name;
-                        } else {
-                            gText.innerText = "Welcome!";
-                        }
-
-                        gText.style.transform = "translateY(0)";
-                        gText.style.opacity = "1";
-
-                        document.getElementById("loader").classList.add("hide");
-
-                        setTimeout(() => {
-                            overlay.style.opacity = "0";
-                            setTimeout(() => overlay.remove(), 800);
-                            sessionStorage.setItem('greeted', 'true');
-                        }, 2200);
-                    }).catch(() => {
-                        document.getElementById("greetingOverlay").remove();
-                        document.getElementById("loader").classList.add("hide");
-                    });
-            } else {
-                document.getElementById("greetingOverlay").remove();
-                document.getElementById("loader").classList.add("hide");
-            }
+            document.getElementById("loader").classList.add("hide");
         });
 
         function toggleMobileMenu() {
