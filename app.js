@@ -102,6 +102,16 @@ app.get("/cgpa_Calc", function (req, res) {
    res.redirect("/");
 });
 
+
+
+
+app.get("/elite", function (req, res) {
+   if (req.isAuthenticated()) {
+      return res.sendFile(__dirname + "/Frontend/eliteex.html");
+   }
+   res.redirect("/");
+});
+
 app.get("/FFCS", function (req, res) {
    if (req.isAuthenticated()) {
       return res.sendFile(path.join(__dirname, "Frontend", "ffcs_planner.html"));

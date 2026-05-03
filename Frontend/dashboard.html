@@ -413,6 +413,52 @@
             font-size: 40px;
         }
 
+        /* Elite Logo Navbar Style */
+        .elite-nav-btn {
+            background: none !important;
+            border: none !important;
+            padding: 5px 10px !important;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+            transition: transform 0.2s;
+            overflow: visible !important;
+        }
+        .elite-nav-btn:hover {
+            transform: scale(1.05);
+        }
+        .elite-nav-btn:focus, .elite-nav-btn:active, .elite-nav-btn:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        .elite-logo-stack {
+            position: relative;
+            width: 65px;
+            height: 35px;
+            transform-style: preserve-3d;
+        }
+        .elite-logo-stack img {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: auto !important;
+            transform: none !important;
+            transition: none !important;
+        }
+        .elite-logo-stack .bg-image { z-index: 1; }
+        .elite-logo-stack .top { z-index: 2; }
+        
+        @keyframes miniFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        .elite-logo-stack .floating {
+            animation: miniFloat 2s ease-in-out infinite !important;
+        }
+
         @media (max-width: 768px) {
 
             /* Mobile loader: blurred white */
@@ -590,7 +636,13 @@
             </svg>
         </button>
         <button onclick="window.location.href='/dashboard'">Home</button>
-        <button onclick="showToast('This feature will be added soon.')">Orders</button>
+        <button class="elite-nav-btn" onclick="window.location.href='/elite'">
+            <div class="elite-logo-stack">
+                <img src="../images/ELITE.png" alt="" class="top">
+                <img src="../images/VITL.png" alt="" class="bg-image">
+                <img src="../images/FLASHLOGO.png" alt="" class="top floating">
+            </div>
+        </button>
         <button onclick="window.location.href='/cgpa_Calc'">CGPA Calculator</button>
         <button onclick="window.location.href='/papers'">Previous Year Papers</button>
         <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
