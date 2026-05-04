@@ -15,6 +15,7 @@
         }
 
         body {
+
             background-color: #ffffff;
             color: #111;
             overflow-x: hidden;
@@ -216,6 +217,7 @@
             height: 100%;
             object-fit: cover;
             z-index: 0;
+
         }
 
         .container h2 {
@@ -316,13 +318,46 @@
             .elite-logo {
                 width: 300px;
                 height: 200px;
-                margin-bottom: -20px;
+                margin-bottom: 160px;
             }
 
             .container h2 {
                 font-size: 16px;
                 padding: 20px;
+                margin-top: -160px;
             }
+
+            .hand-image {
+                width: 250px !important;
+                left: 50%;
+                right: auto;
+                margin-left: -125px;
+            }
+        }
+
+        @keyframes slideUpHand {
+            0% {
+                transform: translateY(90%);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hand-image {
+            position: fixed;
+            bottom: -20px;
+            right: -20px;
+            width: 500px;
+            z-index: 1001;
+            pointer-events: none;
+            animation: slideUpHand 1.8s cubic-bezier(0.175, 0.4, 0.32, 0.9) forwards;
+            filter: hue-rotate(0deg);
+            filter: saturate(1.4);
+
         }
     </style>
 </head>
@@ -405,6 +440,7 @@
             }, 10);
         }
     </script>
+    <img src="../images/hand.png" alt="" class="hand-image">
 </body>
 
 </html>
