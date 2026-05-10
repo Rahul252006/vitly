@@ -400,7 +400,7 @@
             main {
                 padding: 100px 16px 24px 16px;
                 overflow-y: auto;
-                height: calc(100vh - 0px);
+                height: 100vh;
                 display: block;
             }
             .page-container {
@@ -436,6 +436,19 @@
                 min-height: 500px;
                 flex: none;
                 margin-top: 10px;
+            }
+            .mobile-pdf-fallback {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                padding: 20px;
+                text-align: center;
+                background: #1c1c1e;
+                color: white;
+                border-radius: var(--border-radius);
             }
         }
     </style>
@@ -516,7 +529,22 @@
                     const response = await fetch(`/api/paper-details?${queryString}`);
                     const data = await response.json();
                     if (data.fileUrl && data.fileUrl !== "#") {
-                        document.getElementById('pdf-viewer').src = data.fileUrl;
+                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        const pdfViewer = document.getElementById('pdf-viewer');
+                        if (isMobile) {
+                            pdfViewer.style.display = 'none';
+                            const fallback = document.createElement('div');
+                            fallback.className = 'mobile-pdf-fallback';
+                            fallback.innerHTML = `
+                                <div style="font-size: 48px; margin-bottom: 10px;">📄</div>
+                                <h3 style="margin: 0; font-size: 18px;">PDF Preview</h3>
+                                <p style="font-size: 14px; opacity: 0.7; margin: 0 0 10px 0;">Embedding PDFs is restricted on mobile browsers.</p>
+                                <a href="${data.fileUrl}" target="_blank" style="padding: 12px 24px; background: #0071e3; color: white; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 15px;">Open in New Tab</a>
+                            `;
+                            pdfViewer.parentElement.appendChild(fallback);
+                        } else {
+                            pdfViewer.src = data.fileUrl;
+                        }
                         document.getElementById('download-btn').href = data.fileUrl;
                         document.getElementById('download-btn').setAttribute('download', `${params.courseCode}_${params.examType}.pdf`);
                     }
