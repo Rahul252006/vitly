@@ -401,7 +401,7 @@
         <button onclick="window.location.href='/papers'">Previous Year Papers</button>
         <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
         <button onclick="window.location.href='/profile'" class="p_active">Profile</button>
-        <button class="logout" onclick="logout()">Logout</button>
+        <button id="nav-auth-btn" class="logout" onclick="logout()">Logout</button>
     </nav>
     <div id="mainBoundary" class="main-wrapper">
         <div class="profile-card">
@@ -425,6 +425,36 @@
                     setTimeout(() => { document.getElementById("loader").classList.add("hide"); }, 200);
                 });
         });
+    <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/user');
+                const user = await res.json();
+                const authBtn = document.getElementById('nav-auth-btn');
+                if (user.authenticated) {
+                    authBtn.textContent = 'Logout';
+                    authBtn.classList.remove('login-btn');
+                    authBtn.onclick = logout;
+                    
+                    document.getElementById('profileName').textContent = user.name;
+                    document.getElementById('profileEmail').textContent = user.email;
+                    document.getElementById('user-pic').src = user.picture || '../images/default-avatar.png';
+                } else {
+                    authBtn.textContent = 'Login';
+                    authBtn.classList.add('login-btn');
+                    authBtn.onclick = () => window.location.href = '/login';
+                    
+                    document.getElementById('profileName').textContent = "Guest User";
+                    document.getElementById('profileEmail').textContent = "Please login to see your details";
+                    document.getElementById('user-pic').src = '../images/default-avatar.png';
+                    document.querySelector('.danger-zone').style.display = 'none';
+                }
+            } catch (err) {
+                console.error("Auth check failed:", err);
+            } finally {
+                document.getElementById('loader').classList.add('hide');
+            }
+        }
         function toggleMobileMenu() {
             let menu = document.getElementById('mobileMenuOverlay');
             if (!menu) {
@@ -445,21 +475,7 @@
             }
             menu.classList.toggle('active');
         }
-        function showToast(msg) {
-            let container = document.getElementById('toast-container');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'toast-container';
-                container.style.cssText = 'position: fixed; top: 80px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px;';
-                document.body.appendChild(container);
-            }
-            const toast = document.createElement('div');
-            toast.innerText = msg;
-            toast.style.cssText = 'background: #333; color: #fff; padding: 15px 25px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);';
-            container.appendChild(toast);
-            setTimeout(() => { toast.style.transform = 'translateX(0)'; toast.style.opacity = '1'; }, 10);
-            setTimeout(() => { toast.style.transform = 'translateX(120%)'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2000);
-        }
+        window.onload = checkAuth;
         function logout() {
             const modalHTML = `
             <div id="logoutModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">

@@ -635,7 +635,7 @@
         <button onclick="window.location.href='/papers'">Previous Year Papers</button>
         <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
         <button onclick="window.location.href='/profile'">Profile</button>
-        <button class="logout" onclick="logout()">Logout</button>
+        <button id="nav-auth-btn" class="logout" onclick="logout()">Logout</button>
     </nav>
     <div id="mainBoundary" class="main-wrapper">
         <h1 class="title">VITly GPA Calculator</h1>
@@ -726,6 +726,25 @@
             setTimeout(() => { toast.style.transform = 'translateX(0)'; toast.style.opacity = '1'; }, 10);
             setTimeout(() => { toast.style.transform = 'translateX(120%)'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2000);
         }
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/user');
+                const user = await res.json();
+                const authBtn = document.getElementById('nav-auth-btn');
+                if (user.authenticated) {
+                    authBtn.textContent = 'Logout';
+                    authBtn.classList.remove('login-btn');
+                    authBtn.onclick = logout;
+                } else {
+                    authBtn.textContent = 'Login';
+                    authBtn.classList.add('login-btn');
+                    authBtn.onclick = () => window.location.href = '/login';
+                }
+            } catch (err) {
+                console.error("Auth check failed:", err);
+            }
+        }
+        window.onload = checkAuth;
         function logout() {
             const modalHTML = `
             <div id="logoutModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">

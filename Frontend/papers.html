@@ -810,7 +810,7 @@
         <button onclick="window.location.href='/papers'" class="nav-active">Previous Year Papers</button>
         <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
         <button onclick="window.location.href='/profile'">Profile</button>
-        <button class="logout" onclick="logout()">Logout</button>
+        <button id="nav-auth-btn" class="logout" onclick="handleAuthAction()">Logout</button>
     </nav>
     <main>
         <div class="header-section">
@@ -818,7 +818,7 @@
                 <h1>Previous Year Papers</h1>
                 <p>Non repeated papers for good practice.</p>
             </div>
-            <button class="upload-btn-top" onclick="toggleUploadModal(true)">Upload a Paper</button>
+            <button class="upload-btn-top" onclick="openUploadModal()">Upload a Paper</button>
         </div>
         <div class="controls-container">
             <div class="search-container">
@@ -1077,6 +1077,34 @@
                 }
             }, 10);
         }
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/user');
+                const user = await res.json();
+                window.currentUser = user;
+                const authBtn = document.getElementById('nav-auth-btn');
+                if (user.authenticated) {
+                    authBtn.textContent = 'Logout';
+                    authBtn.classList.remove('login-btn');
+                    authBtn.onclick = logout;
+                } else {
+                    authBtn.textContent = 'Login';
+                    authBtn.classList.add('login-btn');
+                    authBtn.onclick = () => window.location.href = '/login';
+                }
+            } catch (err) {
+                console.error("Auth check failed:", err);
+            }
+        }
+        function openUploadModal() {
+            if (!window.currentUser || !window.currentUser.authenticated) {
+                window.location.href = '/login';
+                return;
+            }
+            const modal = document.getElementById('uploadModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
         function toggleMobileMenu() {
             let menu = document.getElementById('mobileMenuOverlay');
             if (!menu) {
@@ -1097,7 +1125,10 @@
             }
             menu.classList.toggle('active');
         }
-        fetchPapers();
+        window.onload = () => {
+            fetchPapers();
+            checkAuth();
+        };
     </script>
 </body>
 </html>

@@ -15,6 +15,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./BackendRoutes/auth")(passport);
 app.get("/", (req, res) => {
+   res.redirect("/dashboard");
+});
+app.get("/login", (req, res) => {
    if (req.isAuthenticated()) {
       return res.redirect("/dashboard");
    }
@@ -27,16 +30,13 @@ app.get("/auth/google",
 );
 app.get("/auth/google/callback",
    passport.authenticate("google", {
-      failureRedirect: "/"
+      failureRedirect: "/login"
    }),
    (req, res) => {
       res.redirect("/dashboard");
    });
 app.get("/dashboard", (req, res) => {
-   if (req.isAuthenticated()) {
-      return res.sendFile(__dirname + "/Frontend/dashboard.html");
-   }
-   res.redirect("/");
+   res.sendFile(__dirname + "/Frontend/dashboard.html");
 });
 app.get("/logout", (req, res) => {
    req.logout(function (err) {
@@ -49,12 +49,13 @@ app.get("/logout", (req, res) => {
 app.get("/api/user", (req, res) => {
    if (req.isAuthenticated()) {
       res.json({
+         authenticated: true,
          name: req.user.displayName,
          email: req.user.emails && req.user.emails.length > 0 ? req.user.emails[0].value : "N/A",
          picture: req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : ""
       });
    } else {
-      res.status(401).json({ error: "Not authenticated" });
+      res.json({ authenticated: false });
    }
 });
 app.delete("/api/delete-user", (req, res) => {
@@ -70,76 +71,50 @@ app.delete("/api/delete-user", (req, res) => {
    }
 });
 app.get("/profile", (req, res) => {
-   if (req.isAuthenticated()) {
-      return res.sendFile(path.join(__dirname, "Frontend", "profile.html"));
-   }
-   res.redirect("/");
+   res.sendFile(path.join(__dirname, "Frontend", "profile.html"));
 });
 app.get("/cgpa_Calc", function (req, res) {
-   if (req.isAuthenticated()) {
-      return res.sendFile(__dirname + "/Frontend/cgpa_calc.html");
-   }
-   res.redirect("/");
+   res.sendFile(__dirname + "/Frontend/cgpa_calc.html");
 });
 app.get("/elite", function (req, res) {
-   if (req.isAuthenticated()) {
-      return res.sendFile(__dirname + "/Frontend/eliteex.html");
-   }
-   res.redirect("/");
+   res.sendFile(__dirname + "/Frontend/eliteex.html");
 });
 app.get("/FFCS", function (req, res) {
-   if (req.isAuthenticated()) {
-      return res.sendFile(path.join(__dirname, "Frontend", "ffcs_planner.html"));
-   }
-   res.redirect("/");
+   res.sendFile(path.join(__dirname, "Frontend", "ffcs_planner.html"));
 });
 app.get("/policy", function (req, res) {
    res.sendFile(path.join(__dirname, "Frontend", "policy.html"));
 });
 app.get("/papers", function (req, res) {
-   if (req.isAuthenticated()) {
-      return res.sendFile(path.join(__dirname, "Frontend", "papers.html"));
-   }
-   res.redirect("/");
+   res.sendFile(path.join(__dirname, "Frontend", "papers.html"));
 });
 app.get("/paper-preview", (req, res) => {
-   if (req.isAuthenticated()) {
-      return res.sendFile(path.join(__dirname, "Frontend", "paper_preview.html"));
-   }
-   res.redirect("/");
+   res.sendFile(path.join(__dirname, "Frontend", "paper_preview.html"));
 });
 app.get("/api/papers", async (req, res) => {
-   if (req.isAuthenticated()) {
-      try {
-         const [rows] = await db.execute("SELECT courseCode, subject, year, slot, examType, uploadedBy, displayName, createdAt FROM papers ORDER BY createdAt DESC");
-         res.json(rows);
-      } catch (error) {
-         console.error("Database error:", error);
-         res.status(500).json({ error: "Failed to fetch papers from database" });
-      }
-   } else {
-      res.status(401).json({ error: "Not authenticated" });
+   try {
+      const [rows] = await db.execute("SELECT courseCode, subject, year, slot, examType, uploadedBy, displayName, createdAt FROM papers ORDER BY createdAt DESC");
+      res.json(rows);
+   } catch (error) {
+      console.error("Database error:", error);
+      res.status(500).json({ error: "Failed to fetch papers from database" });
    }
 });
 app.get("/api/paper-details", async (req, res) => {
-   if (req.isAuthenticated()) {
-      const { courseCode, slot, year, examType } = req.query;
-      try {
-         const [rows] = await db.execute(
-            "SELECT fileUrl FROM papers WHERE courseCode = ? AND slot = ? AND year = ? AND examType = ?",
-            [courseCode, slot, year, examType]
-         );
-         if (rows.length > 0) {
-            res.json(rows[0]);
-         } else {
-            res.status(404).json({ error: "Paper not found" });
-         }
-      } catch (error) {
-         console.error("Database error:", error);
-         res.status(500).json({ error: "Failed to fetch paper details" });
+   const { courseCode, slot, year, examType } = req.query;
+   try {
+      const [rows] = await db.execute(
+         "SELECT fileUrl FROM papers WHERE courseCode = ? AND slot = ? AND year = ? AND examType = ?",
+         [courseCode, slot, year, examType]
+      );
+      if (rows.length > 0) {
+         res.json(rows[0]);
+      } else {
+         res.status(404).json({ error: "Paper not found" });
       }
-   } else {
-      res.status(401).json({ error: "Not authenticated" });
+   } catch (error) {
+      console.error("Database error:", error);
+      res.status(500).json({ error: "Failed to fetch paper details" });
    }
 });
 app.post("/api/upload-paper", express.json({ limit: '50mb' }), async (req, res) => {

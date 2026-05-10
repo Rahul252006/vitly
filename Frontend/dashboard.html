@@ -548,7 +548,7 @@
         <button onclick="window.location.href='/papers'">Previous Year Papers</button>
         <button onclick="window.location.href='/FFCS'">FFCS Planner</button>
         <button onclick="window.location.href='/profile'">Profile</button>
-        <button class="logout" onclick="logout()">Logout</button>
+        <button id="nav-auth-btn" class="logout" onclick="logout()">Logout</button>
     </nav>
     <main>
         <div class="first">
@@ -794,8 +794,27 @@
         </div>
     </div>
     <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('/api/user');
+                const user = await res.json();
+                const authBtn = document.getElementById('nav-auth-btn');
+                if (user.authenticated) {
+                    authBtn.textContent = 'Logout';
+                    authBtn.classList.remove('login-btn');
+                    authBtn.onclick = logout;
+                } else {
+                    authBtn.textContent = 'Login';
+                    authBtn.classList.add('login-btn');
+                    authBtn.onclick = () => window.location.href = '/login';
+                }
+            } catch (err) {
+                console.error("Auth check failed:", err);
+            }
+        }
         window.addEventListener("load", () => {
             document.getElementById("loader").classList.add("hide");
+            checkAuth();
         });
         function toggleMobileMenu() {
             let menu = document.getElementById('mobileMenuOverlay');
