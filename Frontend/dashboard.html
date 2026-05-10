@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +14,6 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
-        /* Prevent selection on interactive elements */
         button,
         a,
         img,
@@ -26,29 +23,22 @@
             user-select: none;
             -webkit-user-drag: none;
         }
-
-        /* Accessibile focus states */
         :focus {
             outline: none;
         }
-
         :focus-visible {
             outline: 2px solid #0177ED;
             outline-offset: 2px;
         }
-
         html, body {
             overflow-x: hidden;
             width: 100%;
             position: relative;
         }
-
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
-
-        /* Fullscreen Loader */
         #loader {
             position: fixed;
             inset: 0;
@@ -59,13 +49,11 @@
             z-index: 9999;
             transition: opacity 0.4s ease;
         }
-
         .spinner {
             width: 20px;
             height: 20px;
             position: relative;
         }
-
         .spinner div {
             position: absolute;
             width: 3px;
@@ -77,81 +65,65 @@
             transform-origin: center 16px;
             animation: fade 1.2s linear infinite;
         }
-
         html {
             scroll-behavior: smooth;
         }
-
         .spinner div:nth-child(1) {
             transform: rotate(0deg);
             animation-delay: -1.1s;
         }
-
         .spinner div:nth-child(2) {
             transform: rotate(30deg);
             animation-delay: -1s;
         }
-
         .spinner div:nth-child(3) {
             transform: rotate(60deg);
             animation-delay: -0.9s;
         }
-
         .spinner div:nth-child(4) {
             transform: rotate(90deg);
             animation-delay: -0.8s;
         }
-
         .spinner div:nth-child(5) {
             transform: rotate(120deg);
             animation-delay: -0.7s;
         }
-
         .spinner div:nth-child(6) {
             transform: rotate(150deg);
             animation-delay: -0.6s;
         }
-
         .spinner div:nth-child(7) {
             transform: rotate(180deg);
             animation-delay: -0.5s;
         }
-
         .spinner div:nth-child(8) {
             transform: rotate(210deg);
             animation-delay: -0.4s;
         }
-
         .spinner div:nth-child(9) {
             transform: rotate(240deg);
             animation-delay: -0.3s;
         }
-
         .spinner div:nth-child(10) {
             transform: rotate(270deg);
             animation-delay: -0.2s;
         }
-
         .spinner div:nth-child(11) {
             transform: rotate(300deg);
             animation-delay: -0.1s;
         }
-
         .spinner div:nth-child(12) {
             transform: rotate(330deg);
             animation-delay: 0s;
         }
-
         @keyframes fade {
             0% {
                 opacity: 1;
             }
-
             100% {
                 opacity: 0.15;
             }
         }
-
         .navbar {
             display: flex;
             flex-direction: row;
@@ -165,10 +137,8 @@
             top: 0;
             left: 0;
             width: 100%;
-
             z-index: 1000;
         }
-
         .navbar button {
             background-color: transparent;
             border: none;
@@ -178,7 +148,6 @@
             font-weight: 350;
             font-size: 13px;
         }
-
         .first {
             display: flex;
             flex-direction: column;
@@ -189,18 +158,15 @@
             background-color: #F5F5F7;
             padding: 0px 40px 0px 40px;
         }
-
         .first h1 {
             font-size: 50px;
             padding-top: 70px;
         }
-
         .first p {
             text-align: center;
             line-height: 1.6;
             width: 60%;
         }
-
         .know {
             padding: 15px 25px 15px 25px;
             color: white;
@@ -211,11 +177,9 @@
             transition: all 0.3s ease-in-out;
             cursor: pointer;
         }
-
         .know:hover {
             background-color: #0080ff;
         }
-
         .nonknow {
             padding: 15px 25px 15px 25px;
             color: #0177ED;
@@ -226,48 +190,39 @@
             cursor: pointer;
             font-size: 15px;
         }
-
         .nonknow:hover {
             color: white;
             background-color: #0177ED;
         }
-
         span {
             display: flex;
             flex-direction: row;
             gap: 20px;
         }
-
         .table-box {
             animation: fadeUp 0.6s ease forwards;
         }
-
         @keyframes fadeUp {
             from {
                 opacity: 0;
                 transform: translateY(-25px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .danger {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-weight: 100;
             color: #ff0000;
             font-size: 20px;
         }
-
         table th,
         table td {
             padding: 15px 25px;
             border: 1px solid #dcdcdc;
-
         }
-
         .logout {
             padding: 10px 20px;
             color: white !important;
@@ -280,23 +235,18 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-weight: 500 !important;
         }
-
         .logout:hover {
             background-color: #ff0000 !important;
         }
-
         .hide {
             opacity: 0;
             pointer-events: none;
             visibility: hidden;
         }
-
         table th {
             background-color: #0080ff;
             color: white;
-
         }
-
         table {
             border-collapse: separate;
             border-spacing: 0;
@@ -304,14 +254,12 @@
             overflow: hidden;
             border: none;
         }
-
         #res {
             margin-top: 20px;
             display: flex;
             justify-content: center;
             overflow: hidden;
         }
-
         .photo {
             width: 1300px;
             max-width: 100%;
@@ -321,7 +269,6 @@
             transform-style: preserve-3d;
             transform: perspective(1000px) rotateX(40deg);
         }
-
         .cgpaphoto {
             width: 1000px;
             max-width: 100%;
@@ -332,18 +279,15 @@
             transform: perspective(1000px) rotateX(10deg);
             margin-bottom: 20px;
         }
-
         .cgpaphoto:hover {
             transform: perspective(1000px) rotateX(0deg);
         }
-
         .footer {
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
         }
-
         .hamburger {
             display: none;
             background: transparent;
@@ -355,7 +299,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -374,12 +317,10 @@
             transition: 0.4s ease;
             gap: 20px;
         }
-
         .mobile-menu-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
-
         .mobile-menu-overlay button {
             background: transparent;
             border: none;
@@ -389,11 +330,9 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .mobile-menu-overlay button:hover {
             color: #0177ED;
         }
-
         .mobile-menu-overlay button.logout {
             background: #000 !important;
             color: #fff !important;
@@ -401,19 +340,15 @@
             border-radius: 40px;
             margin-top: 10px;
         }
-
         .mobile-menu-overlay button.logout:hover {
             background: #ff3b30 !important;
         }
-
         .mobile-menu-overlay .close-menu {
             position: absolute;
             top: 20px;
             right: 30px;
             font-size: 40px;
         }
-
-        /* Elite Logo Navbar Style */
         .elite-nav-btn {
             background: none !important;
             border: none !important;
@@ -450,7 +385,6 @@
         }
         .elite-logo-stack .bg-image { z-index: 1; }
         .elite-logo-stack .top { z-index: 2; }
-        
         @keyframes miniFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-3px); }
@@ -458,20 +392,14 @@
         .elite-logo-stack .floating {
             animation: miniFloat 2s ease-in-out infinite !important;
         }
-
         @media (max-width: 768px) {
-
-            /* Mobile loader: blurred white */
             #loader {
                 background: rgba(255, 255, 255, 0.7);
                 backdrop-filter: blur(20px);
             }
-
             .spinner div {
                 background: #333;
             }
-
-            /* Mobile navbar: floating pill */
             .navbar {
                 width: calc(100% - 40px);
                 max-width: 450px;
@@ -485,7 +413,6 @@
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
                 border: 1px solid rgb(255, 255, 255);
             }
-
             .navbar img {
                 position: relative !important;
                 left: 0 !important;
@@ -493,16 +420,12 @@
                 transform: none !important;
                 width: 50px;
             }
-
             .navbar button:not(.hamburger) {
                 display: none !important;
             }
-
             .hamburger {
                 display: block;
             }
-
-            /* Mobile dropdown menu */
             .mobile-menu-overlay {
                 top: 85px;
                 right: 32px;
@@ -516,16 +439,13 @@
                 gap: 12px;
                 padding: 25px 20px;
                 border-radius: 25px;
-
                 box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
                 border: 1px solid rgb(255, 255, 255);
                 transform: translateY(-20px) scale(0.95);
             }
-
             .mobile-menu-overlay.active {
                 transform: translateY(0) scale(1);
             }
-
             .mobile-menu-overlay button {
                 font-size: 15px;
                 white-space: nowrap;
@@ -533,11 +453,9 @@
                 text-align: left;
                 padding: 8px 0;
             }
-
             .mobile-menu-overlay .close-menu {
                 display: none;
             }
-
             .first {
                 padding: 100px 20px 40px 20px;
                 text-align: center;
@@ -545,31 +463,25 @@
                 align-items: center;
                 min-height: 100vh;
             }
-
             .first p {
                 width: 100%;
                 font-size: 14px;
             }
-
             .first h1 {
                 font-size: 32px;
                 padding-top: 50px;
                 text-align: center;
             }
-
             .photo {
-
                 transform-style: preserve-3d;
                 transform: perspective(1000px) rotateX(40deg);
             }
-
             .cgpaphoto {
                 transform: perspective(1000px) rotateX(10deg);
                 margin-top: 20px;
                 width: 100%;
                 height: auto;
             }
-
             .first span {
                 display: flex;
                 flex-direction: column;
@@ -577,21 +489,18 @@
                 width: 100%;
                 align-items: center;
             }
-
             .know,
             .nonknow {
                 width: 100%;
                 max-width: 300px;
                 text-align: center;
             }
-
             .footer {
                 flex-direction: column;
                 gap: 20px;
                 margin-top: 40px;
                 text-align: center;
             }
-
             #greetingText {
                 font-size: 32px !important;
                 padding: 0 20px;
@@ -599,7 +508,6 @@
         }
     </style>
 </head>
-
 <body>
     <div id="loader">
         <div class="spinner">
@@ -617,7 +525,6 @@
             <div></div>
         </div>
     </div>
-
     <nav class="navbar">
         <img src="../images/vitly-new-logo.png" alt="" width="50"
             style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
@@ -679,7 +586,6 @@
         </div>
     </main>
     <style>
-        /* Universal Black & White Footer */
         .vitly-footer {
             background-color: #111;
             color: #fff;
@@ -692,14 +598,12 @@
             width: 100%;
             box-sizing: border-box;
         }
-
         .footer-links {
             display: flex;
             gap: 40px;
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .footer-links a {
             color: #fff;
             text-decoration: none;
@@ -708,50 +612,40 @@
             transition: color 0.3s;
             letter-spacing: 0.5px;
         }
-
         .footer-links a:hover {
             color: #0177ED;
         }
-
         .footer-divider {
             width: 60%;
             max-width: 400px;
             height: 1px;
             background-color: #333;
         }
-
         .footer-signature {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-size: 24px;
-            /* letter-spacing: 1.5px; */
             color: #fff;
             margin: 0;
             font-weight: 900;
         }
-
         .footer-copyright {
             font-size: 13px;
             color: #666;
             margin-top: -10px;
         }
-
         @media (max-width: 768px) {
             .vitly-footer {
                 padding: 40px 20px;
             }
-
             .footer-links {
                 gap: 20px;
                 flex-direction: column;
                 align-items: center;
             }
-
             .footer-signature {
                 font-size: 20px;
             }
         }
-
-        /* Floating Profile Icon for footer */
         .footer-avatar-wrap {
             display: inline-flex;
             align-items: center;
@@ -759,7 +653,6 @@
             text-decoration: none;
             transition: 0.3s;
         }
-
         .footer-avatar {
             width: 20px;
             height: 20px;
@@ -768,24 +661,18 @@
             border: 1px solid #fff;
             animation: footerFloat 2.5s ease-in-out infinite;
         }
-
         @keyframes footerFloat {
-
             0%,
             100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-4px);
             }
         }
-
         .footer-avatar-wrap:hover {
             opacity: 0.8;
         }
-
-        /* About Us Modal */
         #aboutUsOverlay {
             position: fixed;
             inset: 0;
@@ -799,12 +686,10 @@
             pointer-events: none;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         #aboutUsOverlay.active {
             opacity: 1;
             pointer-events: auto;
         }
-
         .about-card {
             background: #fff;
             width: 90%;
@@ -817,11 +702,9 @@
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
         }
-
         #aboutUsOverlay.active .about-card {
             transform: translateY(0) scale(1);
         }
-
         .about-card .close-about {
             position: absolute;
             top: 25px;
@@ -838,12 +721,10 @@
             justify-content: center;
             transition: 0.3s;
         }
-
         .about-card .close-about:hover {
             background: #e8e8ed;
             transform: rotate(90deg);
         }
-
         .about-img {
             width: 180px;
             height: 180px;
@@ -853,7 +734,6 @@
             border: 4px solid #fff;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
-
         .about-card h2 {
             font-size: 28px;
             font-weight: 800;
@@ -861,7 +741,6 @@
             margin-bottom: 20px;
             letter-spacing: -0.5px;
         }
-
         .about-card p {
             font-size: 16px;
             color: #444;
@@ -869,7 +748,6 @@
             margin-bottom: 25px;
             text-align: center;
         }
-
         .portfolio-link {
             display: inline-block;
             background: #000;
@@ -882,7 +760,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-
         .portfolio-link:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
@@ -903,7 +780,6 @@
         <p class="footer-signature">VITly by Rahul Simhadri</p>
         <p class="footer-copyright">© 2026 VITly. All rights reserved.</p>
     </footer>
-
     <div id="aboutUsOverlay">
         <div class="about-card">
             <button class="close-about" onclick="closeAboutUs()">×</button>
@@ -921,7 +797,6 @@
         window.addEventListener("load", () => {
             document.getElementById("loader").classList.add("hide");
         });
-
         function toggleMobileMenu() {
             let menu = document.getElementById('mobileMenuOverlay');
             if (!menu) {
@@ -929,7 +804,6 @@
                 menu.id = 'mobileMenuOverlay';
                 menu.className = 'mobile-menu-overlay';
                 let navButtons = Array.from(document.querySelectorAll('.navbar button:not(.hamburger)')).map(btn => {
-                    // Quick fix for closing menu when navigating/clicking toast
                     return btn.outerHTML.replace('onclick="', 'onclick="toggleMobileMenu(); ');
                 }).join('');
                 menu.innerHTML = `
@@ -943,7 +817,6 @@
             }
             menu.classList.toggle('active');
         }
-
         function showToast(msg) {
             let container = document.getElementById('toast-container');
             if (!container) {
@@ -956,12 +829,10 @@
             toast.innerText = msg;
             toast.style.cssText = 'background: #333; color: #fff; padding: 15px 25px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);';
             container.appendChild(toast);
-
             setTimeout(() => {
                 toast.style.transform = 'translateX(0)';
                 toast.style.opacity = '1';
             }, 10);
-
             setTimeout(() => {
                 toast.style.transform = 'translateX(120%)';
                 toast.style.opacity = '0';
@@ -972,28 +843,21 @@
             window.location.href = "/cgpa_Calc";
         }
         function viewCourses() {
-
             let result = document.getElementById("res");
-
             result.innerHTML = `
     <div class="table-box" cellspacing=0>
         <table>
             <tr>
                 <th>Course Code</th>
                 <th>Course Name</th>
-                
             </tr>
-
             <tr>
                 <td>BCSE103E</td>
                 <td>Computer Programming: Java</td>
-                
             </tr>
-
             <tr>
                 <td>CSE2002</td>
                 <td>Data Structures</td>
-                
             </tr>
         </table>
     </div>
@@ -1024,7 +888,6 @@
                 }
             }, 10);
         }
-
         function showAboutUs() {
             document.getElementById('aboutUsOverlay').classList.add('active');
         }
@@ -1033,5 +896,4 @@
         }
     </script>
 </body>
-
 </html>

@@ -4,15 +4,12 @@
         padding: 0;
         box-sizing: border-box;
     }
-
     body {
         font-family: 'Inter', -apple-system, sans-serif;
     }
-
     .page {
         width: 100%;
     }
-
     .hero {
         background: #111;
         display: flex;
@@ -23,7 +20,6 @@
         position: relative;
         overflow: hidden;
     }
-
     .hero::before {
         content: '';
         position: absolute;
@@ -31,7 +27,6 @@
         background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(212, 175, 55, 0.18) 0%, transparent 70%);
         pointer-events: none;
     }
-
     .logo-lockup {
         display: flex;
         flex-direction: column;
@@ -39,7 +34,6 @@
         gap: 6px;
         z-index: 1;
     }
-
     .logo-vitly {
         font-size: 3.2rem;
         font-weight: 900;
@@ -48,7 +42,6 @@
         text-transform: uppercase;
         line-height: 1;
     }
-
     .logo-elite {
         font-size: 0.72rem;
         font-weight: 700;
@@ -56,7 +49,6 @@
         color: rgba(212, 175, 55, 0.65);
         text-transform: uppercase;
     }
-
     .gold-line {
         width: 60px;
         height: 2px;
@@ -64,7 +56,6 @@
         margin: 20px auto 0;
         z-index: 1;
     }
-
     .section {
         background: #fff;
         padding: 56px 32px 64px;
@@ -73,7 +64,6 @@
         align-items: center;
         gap: 40px;
     }
-
     .section-label {
         display: flex;
         flex-direction: column;
@@ -81,7 +71,6 @@
         gap: 10px;
         text-align: center;
     }
-
     .badge {
         font-size: 11px;
         font-weight: 600;
@@ -93,14 +82,12 @@
         border-radius: 20px;
         padding: 5px 14px;
     }
-
     .section-title {
         font-size: 1.75rem;
         font-weight: 800;
         color: #111;
         letter-spacing: -0.01em;
     }
-
     .section-sub {
         font-size: 0.95rem;
         color: #777;
@@ -109,7 +96,6 @@
         text-align: center;
         line-height: 1.7;
     }
-
     .cards {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -117,7 +103,6 @@
         width: 100%;
         max-width: 680px;
     }
-
     .card {
         background: #fff;
         border: 1px solid #eee;
@@ -131,12 +116,10 @@
         transition: box-shadow 0.25s ease, transform 0.25s ease;
         cursor: default;
     }
-
     .card:hover {
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.09);
         transform: translateY(-4px);
     }
-
     .card::before {
         content: '';
         position: absolute;
@@ -146,7 +129,6 @@
         height: 3px;
         background: linear-gradient(90deg, #d4af37, #f9f295);
     }
-
     .card-icon {
         width: 44px;
         height: 44px;
@@ -156,12 +138,10 @@
         align-items: center;
         justify-content: center;
     }
-
     .card-icon svg {
         width: 22px;
         height: 22px;
     }
-
     .coming-soon {
         font-size: 10px;
         font-weight: 700;
@@ -173,28 +153,24 @@
         padding: 3px 8px;
         width: fit-content;
     }
-
     .card-title {
         font-size: 1.05rem;
         font-weight: 700;
         color: #111;
         line-height: 1.3;
     }
-
     .card-desc {
         font-size: 0.875rem;
         color: #555;
         line-height: 1.75;
         font-weight: 400;
     }
-
     .card-chips {
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
         margin-top: 4px;
     }
-
     .chip {
         font-size: 11px;
         font-weight: 500;
@@ -204,18 +180,15 @@
         border-radius: 8px;
         padding: 3px 9px;
     }
-
     @media (max-width: 500px) {
         .cards {
             grid-template-columns: 1fr;
         }
-
         .logo-vitly {
             font-size: 2.4rem;
         }
     }
 </style>
-
 <div class="page">
     <div class="hero">
         <div class="logo-lockup">
@@ -224,10 +197,8 @@
         </div>
         <div class="gold-line"></div>
     </div>
-
     <div class="section">
         <div class="section-label">
-
         </div>
     </div>
 </div>

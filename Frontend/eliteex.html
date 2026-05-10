@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,23 +12,18 @@
             font-family: 'Inter', -apple-system, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
-
         body {
-
             background-color: #ffffff;
             color: #111;
             overflow-x: hidden;
             margin: 0;
         }
-
         button,
         a,
         img {
             user-select: none;
             -webkit-user-drag: none;
         }
-
-        /* Navbar Desktop */
         .navbar {
             display: flex;
             flex-direction: row;
@@ -45,7 +39,6 @@
             width: 100%;
             z-index: 1000;
         }
-
         .navbar button {
             background-color: transparent;
             border: none;
@@ -55,7 +48,6 @@
             font-weight: 350;
             font-size: 13px;
         }
-
         .logout {
             padding: 10px 20px;
             color: white !important;
@@ -68,11 +60,9 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-weight: 500 !important;
         }
-
         .logout:hover {
             background-color: #ff0000 !important;
         }
-
         .hamburger {
             display: none;
             background: transparent;
@@ -84,7 +74,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -103,12 +92,10 @@
             transition: 0.4s ease;
             gap: 20px;
         }
-
         .mobile-menu-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
-
         .mobile-menu-overlay button {
             background: transparent;
             border: none;
@@ -118,15 +105,12 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .mobile-menu-overlay .close-menu {
             position: absolute;
             top: 20px;
             right: 30px;
             font-size: 40px;
         }
-
-        /* Elite Logo Navbar Style */
         .elite-nav-btn {
             background: none !important;
             border: none !important;
@@ -138,11 +122,9 @@
             transition: transform 0.2s;
             overflow: visible !important;
         }
-
         .elite-nav-btn:hover {
             transform: scale(1.05);
         }
-
         .elite-nav-btn:focus,
         .elite-nav-btn:active,
         .elite-nav-btn:focus-visible {
@@ -150,14 +132,12 @@
             box-shadow: none !important;
             -webkit-tap-highlight-color: transparent !important;
         }
-
         .elite-logo-stack {
             position: relative;
             width: 65px;
             height: 35px;
             transform-style: preserve-3d;
         }
-
         .elite-logo-stack img {
             position: absolute !important;
             top: 0;
@@ -167,32 +147,24 @@
             transform: none !important;
             transition: none !important;
         }
-
         .elite-logo-stack .bg-image {
             z-index: 1;
         }
-
         .elite-logo-stack .top {
             z-index: 2;
         }
-
         @keyframes miniFloat {
-
             0%,
             100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-3px);
             }
         }
-
         .elite-logo-stack .floating {
             animation: miniFloat 2s ease-in-out infinite !important;
         }
-
-        /* Main Content */
         .whole-logo {
             display: flex;
             justify-content: center;
@@ -201,14 +173,12 @@
             min-height: 100vh;
             padding-top: 80px;
         }
-
         .elite-logo {
             position: relative;
             width: 600px;
             height: 400px;
             margin-bottom: -50px;
         }
-
         .elite-logo video {
             position: absolute;
             top: 0;
@@ -217,9 +187,7 @@
             height: 100%;
             object-fit: cover;
             z-index: 0;
-
         }
-
         .container h2 {
             font-size: 20px;
             font-weight: 2000;
@@ -231,10 +199,7 @@
             text-align: center;
             z-index: 9999;
         }
-
         @media (max-width: 768px) {
-
-            /* Mobile navbar: floating pill */
             .navbar {
                 width: calc(100% - 40px);
                 max-width: 450px;
@@ -250,7 +215,6 @@
                 background: rgba(255, 255, 255, 0.8);
                 backdrop-filter: blur(20px);
             }
-
             .navbar img {
                 position: relative !important;
                 left: 0 !important;
@@ -258,15 +222,12 @@
                 transform: none !important;
                 width: 50px;
             }
-
             .navbar button:not(.hamburger) {
                 display: none !important;
             }
-
             .hamburger {
                 display: block;
             }
-
             .mobile-menu-overlay {
                 top: 85px;
                 right: 32px;
@@ -284,11 +245,9 @@
                 border: 1px solid #fff;
                 transform: translateY(-20px) scale(0.95);
             }
-
             .mobile-menu-overlay.active {
                 transform: translateY(0) scale(1);
             }
-
             .mobile-menu-overlay button {
                 font-size: 15px;
                 white-space: nowrap;
@@ -296,11 +255,9 @@
                 text-align: left;
                 padding: 8px 0;
             }
-
             .mobile-menu-overlay .close-menu {
                 display: none;
             }
-
             .mobile-menu-overlay button.logout {
                 margin-top: 10px;
                 color: #ff3b30;
@@ -309,24 +266,19 @@
                 border-radius: 12px;
                 text-align: center;
             }
-
             .mobile-menu-overlay button.logout:hover {
                 background: rgba(255, 59, 48, 0.2);
             }
-
-            /* Elite Content Mobile Adjustments */
             .elite-logo {
                 width: 300px;
                 height: 200px;
                 margin-bottom: 160px;
             }
-
             .container h2 {
                 font-size: 16px;
                 padding: 20px;
                 margin-top: -160px;
             }
-
             .hand-image {
                 width: 250px !important;
                 left: 50%;
@@ -334,19 +286,16 @@
                 margin-left: -125px;
             }
         }
-
         @keyframes slideUpHand {
             0% {
                 transform: translateY(90%);
                 opacity: 1;
             }
-
             100% {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
-
         .hand-image {
             position: fixed;
             bottom: -20px;
@@ -357,11 +306,9 @@
             animation: slideUpHand 1.8s cubic-bezier(0.175, 0.4, 0.32, 0.9) forwards;
             filter: hue-rotate(0deg);
             filter: saturate(1.4);
-
         }
     </style>
 </head>
-
 <body>
     <nav class="navbar">
         <img src="../images/vitly-new-logo.png" alt="" width="50" onclick="window.location.href='/dashboard'"
@@ -388,7 +335,6 @@
         <button onclick="window.location.href='/profile'">Profile</button>
         <button class="logout" onclick="logout()">Logout</button>
     </nav>
-
     <div class="whole-logo">
         <div class="elite-logo">
             <video src="../images/elite-logo.mp4" autoplay muted playsinline disableRemotePlayback></video>
@@ -397,7 +343,6 @@
             <h2>We will bring you these Elite features to you soon...</h2>
         </div>
     </div>
-
     <script>
         function toggleMobileMenu() {
             let menu = document.getElementById('mobileMenuOverlay');
@@ -419,7 +364,6 @@
             }
             menu.classList.toggle('active');
         }
-
         function logout() {
             document.body.insertAdjacentHTML('beforeend', `
             <div id="logoutModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">
@@ -442,5 +386,4 @@
     </script>
     <img src="../images/hand.png" alt="" class="hand-image">
 </body>
-
 </html>

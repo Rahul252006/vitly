@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,30 +14,22 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
-        /* Prevent selection on interactive elements */
         button, a, img, .btn, .hamburger, .slot-cell {
             user-select: none;
             -webkit-user-drag: none;
         }
-
-        /* Accessibile focus states */
         :focus { outline: none; }
         :focus-visible { outline: 2px solid #0177ED; outline-offset: 2px; }
-
         html, body {
             overflow-x: hidden;
             width: 100%;
             position: relative;
         }
-
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             background-color: #F5F5F7;
         }
-
-        /* Fullscreen Loader */
         #loader {
             position: fixed;
             inset: 0;
@@ -50,13 +41,11 @@
             z-index: 9999;
             transition: opacity 0.4s ease;
         }
-
         .spinner {
             width: 20px;
             height: 20px;
             position: relative;
         }
-
         .spinner div {
             position: absolute;
             width: 3px;
@@ -68,77 +57,62 @@
             transform-origin: center 16px;
             animation: fade 1.2s linear infinite;
         }
-
         .spinner div:nth-child(1) {
             transform: rotate(0deg);
             animation-delay: -1.1s;
         }
-
         .spinner div:nth-child(2) {
             transform: rotate(30deg);
             animation-delay: -1s;
         }
-
         .spinner div:nth-child(3) {
             transform: rotate(60deg);
             animation-delay: -0.9s;
         }
-
         .spinner div:nth-child(4) {
             transform: rotate(90deg);
             animation-delay: -0.8s;
         }
-
         .spinner div:nth-child(5) {
             transform: rotate(120deg);
             animation-delay: -0.7s;
         }
-
         .spinner div:nth-child(6) {
             transform: rotate(150deg);
             animation-delay: -0.6s;
         }
-
         .spinner div:nth-child(7) {
             transform: rotate(180deg);
             animation-delay: -0.5s;
         }
-
         .spinner div:nth-child(8) {
             transform: rotate(210deg);
             animation-delay: -0.4s;
         }
-
         .spinner div:nth-child(9) {
             transform: rotate(240deg);
             animation-delay: -0.3s;
         }
-
         .spinner div:nth-child(10) {
             transform: rotate(270deg);
             animation-delay: -0.2s;
         }
-
         .spinner div:nth-child(11) {
             transform: rotate(300deg);
             animation-delay: -0.1s;
         }
-
         .spinner div:nth-child(12) {
             transform: rotate(330deg);
             animation-delay: 0s;
         }
-
         @keyframes fade {
             0% {
                 opacity: 1;
             }
-
             100% {
                 opacity: 0.15;
             }
         }
-
         .navbar {
             display: flex;
             flex-direction: row;
@@ -154,7 +128,6 @@
             width: 100%;
             z-index: 1000;
         }
-
         .navbar button {
             background-color: transparent;
             border: none;
@@ -162,7 +135,6 @@
             cursor: pointer;
             font-size: 13px;
         }
-
         .logout {
             padding: 10px 20px;
             color: white !important;
@@ -174,11 +146,9 @@
             cursor: pointer;
             font-weight: 500 !important;
         }
-
         .logout:hover {
             background-color: #ff0000 !important;
         }
-
         main {
             margin-top: 100px;
             padding: 0 40px;
@@ -186,13 +156,11 @@
             flex-direction: column;
             align-items: center;
         }
-
         h1 {
             font-size: 40px;
             text-align: center;
             margin-bottom: 30px;
         }
-
         .planner-form {
             background: white;
             padding: 20px 30px;
@@ -207,19 +175,16 @@
             position: relative;
             z-index: 1002;
         }
-
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 5px;
             flex: 1;
         }
-
         .form-group label {
             font-size: 13px;
             color: #555;
         }
-
         .form-group input {
             padding: 10px 15px;
             border: 1px solid #dcdcdc;
@@ -228,11 +193,9 @@
             outline: none;
             transition: 0.3s;
         }
-
         .form-group input:focus {
             border-color: #0177ED;
         }
-
         button.know {
             padding: 12px 15px;
             color: white;
@@ -245,7 +208,6 @@
             margin-top: 18px;
             width: max-content;
         }
-
         .knowd {
             padding: 12px 15px;
             color: white;
@@ -257,13 +219,10 @@
             transition: all 0.3s ease-in-out;
             margin-top: 18px;
             width: max-content;
-
         }
-
         button.know:hover {
             background-color: #0080ff;
         }
-
         button.nonknow {
             padding: 12px 25px;
             border: 1px solid #0177ED;
@@ -274,25 +233,19 @@
             margin-top: 18px;
             font-size: 14px;
             transition: all 0.3s ease-in-out;
-
         }
-
         button.nonknow:hover {
             background-color: #f0f7ff;
         }
-
-        /* Custom Dropdown Styles */
         .custom-dropdown {
             position: relative;
             width: 100%;
         }
-
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: #fff;
             min-width: 100%;
-            /* 38px per item roughly. 8 * 38 = 304px */
             max-height: 304px;
             overflow-y: auto;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
@@ -301,12 +254,10 @@
             border: 1px solid #dcdcdc;
             margin-top: 5px;
         }
-
         .ffcs_active {
             color: #0177ED !important;
             font-weight: 600 !important;
         }
-
         .dropdown-content div {
             color: #333;
             padding: 10px 15px;
@@ -316,31 +267,25 @@
             font-size: 14px;
             border-bottom: 1px solid #f5f5f5;
         }
-
         .dropdown-content div:last-child {
             border-bottom: none;
         }
-
         .dropdown-content div:hover {
             background-color: #f1f7ff;
             color: #0177ED;
             font-weight: 500;
         }
-
         .show {
             display: block;
         }
-
         .main-wrapper {
             width: 100%;
             transition: filter 0.3s ease;
         }
-
         .blur-bg {
             filter: blur(5px);
             pointer-events: none;
         }
-
         .table-box {
             animation: fadeUp 0.6s ease forwards;
             background: white;
@@ -351,19 +296,16 @@
             overflow-x: auto;
             margin-bottom: 60px;
         }
-
         @keyframes fadeUp {
             from {
                 opacity: 0;
                 transform: translateY(-25px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         table {
             border-collapse: separate;
             border-spacing: 0;
@@ -373,7 +315,6 @@
             width: 100%;
             text-align: center;
         }
-
         table th,
         table td {
             padding: 15px 10px;
@@ -381,49 +322,40 @@
             border-bottom: 1px solid #dcdcdc;
             font-size: 13px;
         }
-
         table th:last-child,
         table td:last-child {
             border-right: none;
         }
-
         table tr:last-child td {
             border-bottom: none;
         }
-
         table th {
             background-color: #0080ff;
             color: white;
             font-weight: 500;
         }
-
         td.day {
             font-weight: 600;
             background-color: #f9f9fb;
         }
-
         .hide {
             opacity: 0;
             pointer-events: none;
             visibility: hidden;
         }
-
         td.slot-cell {
             transition: background 0.3s;
             cursor: pointer;
         }
-
         td.slot-cell:hover {
             background-color: #cee1f5;
         }
-
         td.slot-cell.active-slot {
             background-color: #0177ED;
             color: white;
             font-weight: bold;
             box-shadow: inset 0 0 0 2px #005bb5;
         }
-
         td.lunch {
             background: #eee;
             font-weight: 600;
@@ -431,9 +363,7 @@
             text-orientation: upright;
             letter-spacing: 5px;
         }
-
         .hamburger { display: none; background: transparent; border: none; cursor: pointer; color: #333; margin-left: auto; z-index: 10; align-items: center; justify-content: center; }
-
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -452,12 +382,10 @@
             transition: 0.4s ease;
             gap: 20px;
         }
-
         .mobile-menu-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
-
         .mobile-menu-overlay button {
             background: transparent;
             border: none;
@@ -467,11 +395,9 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .mobile-menu-overlay button:hover {
             color: #0177ED;
         }
-
         .mobile-menu-overlay button.logout {
             background: #000 !important;
             color: #fff !important;
@@ -479,20 +405,16 @@
             border-radius: 40px;
             margin-top: 10px;
         }
-
         .mobile-menu-overlay button.logout:hover {
             background: #ff3b30 !important;
         }
-
         .mobile-menu-overlay .close-menu {
             position: absolute;
             top: 20px;
             right: 30px;
             font-size: 40px;
         }
-
         @media (max-width: 768px) {
-            /* Mobile loader: blurred white */
             #loader {
                 background: rgba(255, 255, 255, 0.7);
                 backdrop-filter: blur(20px);
@@ -500,8 +422,6 @@
             .spinner div {
                 background: #333;
             }
-
-            /* Mobile navbar: floating pill */
             .navbar {
                 width: calc(100% - 40px);
                 max-width: 450px;
@@ -517,7 +437,6 @@
                 background: rgba(255, 255, 255, 0.8);
                 backdrop-filter: blur(20px);
             }
-
             .navbar img {
                 position: relative !important;
                 left: 0 !important;
@@ -525,23 +444,19 @@
                 transform: none !important;
                 width: 50px;
             }
-
             .navbar button:not(.hamburger) {
                 display: none !important;
             }
-
             .hamburger {
                 display: block;
             }
-
-            /* Mobile dropdown menu */
             .mobile-menu-overlay {
                 top: 85px;
                 right: 32px;
                 left: auto;
                 width: 260px;
                 height: auto;
-                background: rgba(255, 255, 255, 0.65);
+                background: rgba(255, 255, 255, 0.7);
                 backdrop-filter: blur(40px);
                 align-items: flex-start;
                 transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -560,21 +475,26 @@
                 white-space: nowrap;
                 width: 100%;
                 text-align: left;
-                padding: 8px 0;
+                padding: 10px 0;
+                color: #333;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+            .mobile-menu-overlay button:last-of-type {
+                border-bottom: none;
+            }
+            .mobile-menu-overlay .elite-nav-btn {
+                padding: 10px 0 !important;
             }
             .mobile-menu-overlay .close-menu {
                 display: none;
             }
-
             main {
                 padding: 0 15px 40px 15px;
                 margin-top: 100px;
             }
-
             h1 {
                 font-size: 28px !important;
             }
-
             .planner-form {
                 flex-direction: column;
                 align-items: stretch;
@@ -584,18 +504,15 @@
                 border-radius: 12px;
                 box-sizing: border-box;
             }
-
             .planner-form .form-group {
                 width: 100%;
             }
-
             .planner-form input,
             .planner-form select {
                 width: 100%;
                 font-size: 14px;
                 box-sizing: border-box;
             }
-
             button.know,
             .knowd {
                 width: 100% !important;
@@ -603,7 +520,6 @@
                 box-sizing: border-box;
                 margin-top: 10px;
             }
-
             .timetable {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
@@ -611,23 +527,17 @@
                 margin: 0 -15px;
                 padding: 0 15px;
             }
-
             table {
                 width: 1000px;
-                /* Force table to stay wide and scrollable */
             }
-
             .action-bar {
                 flex-direction: column;
                 gap: 15px;
             }
-
             .action-bar button {
                 width: 100%;
             }
         }
-
-        /* Elite Logo Navbar Style */
         .elite-nav-btn {
             background: none !important;
             border: none !important;
@@ -664,7 +574,6 @@
         }
         .elite-logo-stack .bg-image { z-index: 1; }
         .elite-logo-stack .top { z-index: 2; }
-        
         @keyframes miniFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-3px); }
@@ -675,7 +584,6 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-
 <body>
     <div id="loader">
         <div class="spinner">
@@ -694,8 +602,8 @@
         </div>
     </div>
     <nav class="navbar">
-        <img src="../images/vitly-new-logo.png" alt="" width="50"
-            style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%);">
+        <img src="../images/vitly-new-logo.png" alt="" width="50" onclick="window.location.href='/dashboard'"
+            style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%); cursor: pointer;">
         <button class="hamburger" onclick="toggleMobileMenu()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
@@ -715,8 +623,6 @@
     </nav>
     <main>
         <h1>Plan Your Timetable - VITly</h1>
-
-        <!-- Planner form kept outside the blur wrapper so it remains focused while background blurs -->
         <div class="planner-form">
             <div class="form-group">
                 <label for="courseCode">Course Code</label>
@@ -732,7 +638,6 @@
                     <input type="text" id="courseSlot" placeholder="Select or type slot" onfocus="openDropdown()"
                         oninput="filterDropdown()" autocomplete="off">
                     <div id="slotDropdownList" class="dropdown-content">
-                        <!-- Javascript will dynamically inject slots here -->
                     </div>
                 </div>
             </div>
@@ -741,7 +646,6 @@
             <button class="nonknow" onclick="clearTable()">Clear Table</button>
             <button class="knowd" onclick="downloadPDF()">Download Timetable</button>
         </div>
-
         <div id="mainBoundary" class="main-wrapper">
             <div class="table-box">
                 <table>
@@ -862,16 +766,11 @@
             </div>
         </div>
     </main>
-
-
-
     <script>
         window.addEventListener("load", () => {
             setTimeout(() => {
                 document.getElementById("loader").classList.add("hide");
             }, 200);
-
-            // Populate dropdown with all unique slots natively
             const dropdownList = document.getElementById("slotDropdownList");
             let tempSet = new Set();
             document.querySelectorAll(".slot-cell").forEach(cell => {
@@ -886,35 +785,27 @@
                 textDiv.innerText = s;
                 textDiv.onclick = function () {
                     let inputNode = document.getElementById("courseSlot");
-                    // Append if picking multiple or replace if single. 
-                    // Let's replace for neatness since they handle one course at a time properly.
                     inputNode.value = s;
                     closeDropdown();
                 };
                 dropdownList.appendChild(textDiv);
             });
         });
-
-        // Dropdown interactions
         document.addEventListener("click", function (e) {
             const inputField = document.getElementById("courseSlot");
             const dropdown = document.getElementById("slotDropdownList");
-            // close dropdown if clicked outside
             if (e.target !== inputField && !dropdown.contains(e.target)) {
                 closeDropdown();
             }
         });
-
         function openDropdown() {
             document.getElementById("slotDropdownList").classList.add("show");
             document.getElementById("mainBoundary").classList.add("blur-bg");
         }
-
         function closeDropdown() {
             document.getElementById("slotDropdownList").classList.remove("show");
             document.getElementById("mainBoundary").classList.remove("blur-bg");
         }
-
         function filterDropdown() {
             let inputStr = document.getElementById("courseSlot").value.toUpperCase();
             let options = document.getElementById("slotDropdownList").getElementsByTagName("div");
@@ -927,25 +818,20 @@
                 }
             }
         }
-
         function addSlot() {
             let slotInput = document.getElementById("courseSlot").value.trim().toUpperCase();
             if (!slotInput) return;
-
             let slotsToFind = slotInput.split(/[\s+]+/).map(s => s.trim()).filter(s => s.length > 0);
             let allCells = document.querySelectorAll(".slot-cell");
             let foundAny = false;
-
             slotsToFind.forEach(singleSlot => {
                 allCells.forEach(cell => {
                     let cellSlots = cell.getAttribute("data-slots").split(",");
                     if (cellSlots.includes(singleSlot)) {
                         cell.classList.add("active-slot");
-
                         let cCode = document.getElementById("courseCode").value.toUpperCase();
                         let cTitle = document.getElementById("courseTitle").value;
                         let textBlock = cTitle ? cTitle : "Scheduled";
-
                         if (!cell.innerHTML.includes('<br>')) {
                             cell.innerHTML = `<strong>${cellSlots.join(" / ")}</strong><br><span style='font-size:11px;'><br>${textBlock}</span>`;
                         } else {
@@ -955,22 +841,17 @@
                     }
                 });
             });
-
             if (foundAny) {
-                // Clear input logically after adding to board
-                // clearInput();
             } else {
                 alert("Slot not found! Please check slot name.");
             }
         }
-
         function clearInput() {
             document.getElementById("courseSlot").value = "";
             document.getElementById("courseCode").value = "";
             document.getElementById("courseTitle").value = "";
             filterDropdown(); // Reset dropdown view
         }
-
         function clearTable() {
             document.querySelectorAll(".slot-cell").forEach(cell => {
                 cell.classList.remove("active-slot");
@@ -982,17 +863,13 @@
                 }
             });
         }
-
         function downloadPDF() {
             document.getElementById("loader").classList.remove("hide");
-
             const pdfContainer = document.createElement("div");
-            // Set a strict wide desktop width so the timetable doesn't squish or wrap text
             pdfContainer.style.width = "1400px";
             pdfContainer.style.padding = "40px";
             pdfContainer.style.background = "#ffffff";
             pdfContainer.style.fontFamily = "system-ui, sans-serif";
-
             const headerObj = document.createElement("div");
             headerObj.innerHTML = `
                 <div style="text-align: center; margin-bottom: 25px;">
@@ -1000,27 +877,21 @@
                     <p style="color: #666; font-size: 16px; margin-top: 8px;">Your perfectly tailored custom timetable layout</p>
                 </div>
             `;
-
             const tableClone = document.querySelector(".table-box").cloneNode(true);
             tableClone.style.boxShadow = "none";
             tableClone.style.transform = "none";
             tableClone.style.animation = "none";
             tableClone.style.margin = "0 auto 20px auto";
-            // Ensure table fills the wide fixed container without issue
             tableClone.querySelector("table").style.width = "100%";
-
             const footerObj = document.createElement("div");
             footerObj.innerHTML = `
                 <div style="margin-top: 20px; text-align: center; color: #444; font-size: 15px; border-top: 2px solid #0177ED; padding-top: 20px;">
                     <span style="font-weight: 600; color: #0177ED;">Try these all at VITly!</span> — Access customized CGPA calculators, Previous Year Papers, and the Ultimate Student Dashboard.
                 </div>
             `;
-
             pdfContainer.appendChild(headerObj);
             pdfContainer.appendChild(tableClone);
             pdfContainer.appendChild(footerObj);
-
-            // Use A3 landscape format which guarantees one wide page perfectly fitting the table
             const opt = {
                 margin: [0.1, 0.1, 0.1, 0.1],
                 filename: 'VITly_Timetable.pdf',
@@ -1028,7 +899,6 @@
                 html2canvas: { scale: 2, useCORS: true },
                 jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
             };
-
             html2pdf().set(opt).from(pdfContainer).save().then(() => {
                 document.getElementById("loader").classList.add("hide");
             });
@@ -1053,7 +923,6 @@
             }
             menu.classList.toggle('active');
         }
-
         function showToast(msg) {
             let container = document.getElementById('toast-container');
             if (!container) {
@@ -1069,7 +938,6 @@
             setTimeout(() => { toast.style.transform = 'translateX(0)'; toast.style.opacity = '1'; }, 10);
             setTimeout(() => { toast.style.transform = 'translateX(120%)'; toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2000);
         }
-
         function logout() {
             const modalHTML = `
             <div id="logoutModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">
@@ -1094,5 +962,4 @@
         }
     </script>
 </body>
-
 </html>
