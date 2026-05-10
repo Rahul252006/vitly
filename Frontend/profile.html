@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,38 +15,56 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        button, a, img, .btn, .hamburger, .profile-avatar {
+
+        button,
+        a,
+        img,
+        .btn,
+        .hamburger,
+        .profile-avatar {
             user-select: none;
             -webkit-user-drag: none;
         }
-        :focus { outline: none; }
-        :focus-visible { outline: 2px solid #0177ED; outline-offset: 2px; }
-        html, body {
+
+        :focus {
+            outline: none;
+        }
+
+        :focus-visible {
+            outline: 2px solid #0177ED;
+            outline-offset: 2px;
+        }
+
+        html,
+        body {
             overflow-x: hidden;
             width: 100%;
             position: relative;
         }
+
         body {
             margin: 0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             background-color: #F5F5F7;
         }
+
         #loader {
             position: fixed;
             inset: 0;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.98);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
             transition: opacity 0.4s ease;
         }
+
         .spinner {
             width: 20px;
             height: 20px;
             position: relative;
         }
+
         .spinner div {
             position: absolute;
             width: 3px;
@@ -57,62 +76,77 @@
             transform-origin: center 16px;
             animation: fade 1.2s linear infinite;
         }
+
         .spinner div:nth-child(1) {
             transform: rotate(0deg);
             animation-delay: -1.1s;
         }
+
         .spinner div:nth-child(2) {
             transform: rotate(30deg);
             animation-delay: -1s;
         }
+
         .spinner div:nth-child(3) {
             transform: rotate(60deg);
             animation-delay: -0.9s;
         }
+
         .spinner div:nth-child(4) {
             transform: rotate(90deg);
             animation-delay: -0.8s;
         }
+
         .spinner div:nth-child(5) {
             transform: rotate(120deg);
             animation-delay: -0.7s;
         }
+
         .spinner div:nth-child(6) {
             transform: rotate(150deg);
             animation-delay: -0.6s;
         }
+
         .spinner div:nth-child(7) {
             transform: rotate(180deg);
             animation-delay: -0.5s;
         }
+
         .spinner div:nth-child(8) {
             transform: rotate(210deg);
             animation-delay: -0.4s;
         }
+
         .spinner div:nth-child(9) {
             transform: rotate(240deg);
             animation-delay: -0.3s;
         }
+
         .spinner div:nth-child(10) {
             transform: rotate(270deg);
             animation-delay: -0.2s;
         }
+
         .spinner div:nth-child(11) {
             transform: rotate(300deg);
             animation-delay: -0.1s;
         }
+
         .spinner div:nth-child(12) {
             transform: rotate(330deg);
             animation-delay: 0s;
         }
+
         @keyframes fade {
             0% {
                 opacity: 1;
             }
+
             100% {
                 opacity: 0.15;
             }
         }
+
         .navbar {
             display: flex;
             flex-direction: row;
@@ -128,6 +162,7 @@
             width: 100%;
             z-index: 1000;
         }
+
         .navbar button {
             background-color: transparent;
             border: none;
@@ -136,6 +171,7 @@
             font-size: 13px;
             font-weight: 350;
         }
+
         .logout {
             padding: 10px 20px;
             color: white !important;
@@ -147,9 +183,11 @@
             cursor: pointer;
             font-weight: 500 !important;
         }
+
         .logout:hover {
             background-color: #ff0000 !important;
         }
+
         .main-wrapper {
             margin-top: 100px;
             padding: 0 40px 60px 40px;
@@ -161,10 +199,12 @@
             min-height: calc(100vh - 160px);
             justify-content: center;
         }
+
         .blur-bg {
             filter: blur(6px);
             pointer-events: none;
         }
+
         .profile-card {
             background: white;
             padding: 50px;
@@ -175,16 +215,19 @@
             text-align: center;
             animation: fadeUp 0.6s ease forwards;
         }
+
         @keyframes fadeUp {
             from {
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
         .profile-photo {
             width: 100px;
             height: 100px;
@@ -194,54 +237,102 @@
             border: 3px solid #0177ED;
             padding: 3px;
         }
+
         .profile-name {
             font-size: 28px;
             color: #333;
             margin-bottom: 5px;
             font-weight: 700;
         }
+
         .profile-email {
             font-size: 16px;
             color: #666;
             margin-bottom: 40px;
         }
-        .btn-delete {
+
+        .btn-login-main {
             padding: 14px 30px;
             border-radius: 40px;
             font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
-            border: 1px solid #ff3b30;
-            color: #ff3b30;
-            background: transparent;
+            border: 1px solid #0177ED;
+            color: #ffffff;
+            background: #0177ED;
             font-weight: 500;
             width: 100%;
             display: block;
+            text-decoration: none;
         }
-        .btn-delete:hover {
-            background: #fff0f0;
+
+        .btn-login-main:hover {
+            background: #0166CC;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(1, 119, 237, 0.2);
         }
+
         .hide {
             opacity: 0;
             pointer-events: none;
             visibility: hidden;
         }
+
         .p_active {
             color: #0177ED !important;
             font-weight: 600 !important;
         }
-        .hamburger { display: none; background: transparent; border: none; cursor: pointer; color: #333; margin-left: auto; z-index: 10; align-items: center; justify-content: center; }
+
+        .hamburger {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: #333;
+            margin-left: auto;
+            z-index: 10;
+            align-items: center;
+            justify-content: center;
+        }
+
         .mobile-menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
-            z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: 0.4s ease; gap: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s ease;
+            gap: 20px;
         }
-        .mobile-menu-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .mobile-menu-overlay button {
-            background: transparent; border: none; font-size: 20px; font-weight: 500; color: #333; cursor: pointer; transition: 0.3s;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .mobile-menu-overlay button:hover { color: #0177ED; }
+
+        .mobile-menu-overlay button:hover {
+            color: #0177ED;
+        }
+
         .mobile-menu-overlay button.logout {
             margin-top: 10px;
             color: #ff3b30 !important;
@@ -251,18 +342,28 @@
             text-align: center !important;
             font-weight: 600 !important;
         }
+
         .mobile-menu-overlay button.logout:hover {
             background: rgba(255, 59, 48, 0.15) !important;
         }
-        .mobile-menu-overlay .close-menu { position: absolute; top: 20px; right: 30px; font-size: 40px; }
+
+        .mobile-menu-overlay .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+        }
+
         @media (max-width: 768px) {
             #loader {
                 background: rgba(255, 255, 255, 0.7);
                 backdrop-filter: blur(20px);
             }
+
             .spinner div {
                 background: #333;
             }
+
             .navbar {
                 width: calc(100% - 40px);
                 max-width: 450px;
@@ -278,9 +379,23 @@
                 background: rgba(255, 255, 255, 0.8);
                 backdrop-filter: blur(20px);
             }
-            .navbar img { position: relative !important; left: 0 !important; top: 0 !important; transform: none !important; width: 50px; }
-            .navbar button:not(.hamburger) { display: none !important; }
-            .hamburger { display: block; }
+
+            .navbar img {
+                position: relative !important;
+                left: 0 !important;
+                top: 0 !important;
+                transform: none !important;
+                width: 50px;
+            }
+
+            .navbar button:not(.hamburger) {
+                display: none !important;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
             .mobile-menu-overlay {
                 top: 85px;
                 right: 32px;
@@ -294,11 +409,15 @@
                 gap: 12px;
                 padding: 25px 20px;
                 border-radius: 25px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
                 border: 1px solid #fff;
                 transform: translateY(-20px) scale(0.95);
             }
-            .mobile-menu-overlay.active { transform: translateY(0) scale(1); }
+
+            .mobile-menu-overlay.active {
+                transform: translateY(0) scale(1);
+            }
+
             .mobile-menu-overlay button {
                 font-size: 15px;
                 white-space: nowrap;
@@ -306,21 +425,44 @@
                 text-align: left;
                 padding: 10px 0;
                 color: #333;
-                border-bottom: 1px solid rgba(0,0,0,0.05);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             }
+
             .mobile-menu-overlay button:last-of-type {
                 border-bottom: none;
             }
+
             .mobile-menu-overlay .elite-nav-btn {
                 padding: 10px 0 !important;
             }
-            .mobile-menu-overlay .close-menu { display: none; }
-            .main-wrapper { padding: 100px 15px 40px 15px; margin-top: 0; }
-            .profile-card { padding: 30px 20px; }
-            .profile-name { font-size: 24px; }
-            .profile-email { font-size: 14px; }
-            .btn-delete { padding: 12px; font-size: 14px; }
+
+            .mobile-menu-overlay .close-menu {
+                display: none;
+            }
+
+            .main-wrapper {
+                padding: 100px 15px 40px 15px;
+                margin-top: 0;
+            }
+
+            .profile-card {
+                padding: 30px 20px;
+            }
+
+            .profile-name {
+                font-size: 24px;
+            }
+
+            .profile-email {
+                font-size: 14px;
+            }
+
+            .btn-delete {
+                padding: 12px;
+                font-size: 14px;
+            }
         }
+
         .elite-nav-btn {
             background: none !important;
             border: none !important;
@@ -332,20 +474,26 @@
             transition: transform 0.2s;
             overflow: visible !important;
         }
+
         .elite-nav-btn:hover {
             transform: scale(1.05);
         }
-        .elite-nav-btn:focus, .elite-nav-btn:active, .elite-nav-btn:focus-visible {
+
+        .elite-nav-btn:focus,
+        .elite-nav-btn:active,
+        .elite-nav-btn:focus-visible {
             outline: none !important;
             box-shadow: none !important;
             -webkit-tap-highlight-color: transparent !important;
         }
+
         .elite-logo-stack {
             position: relative;
             width: 65px;
             height: 35px;
             transform-style: preserve-3d;
         }
+
         .elite-logo-stack img {
             position: absolute !important;
             top: 0;
@@ -355,17 +503,33 @@
             transform: none !important;
             transition: none !important;
         }
-        .elite-logo-stack .bg-image { z-index: 1; }
-        .elite-logo-stack .top { z-index: 2; }
-        @keyframes miniFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-3px); }
+
+        .elite-logo-stack .bg-image {
+            z-index: 1;
         }
+
+        .elite-logo-stack .top {
+            z-index: 2;
+        }
+
+        @keyframes miniFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+
         .elite-logo-stack .floating {
             animation: miniFloat 2s ease-in-out infinite !important;
         }
     </style>
 </head>
+
 <body>
     <div id="loader">
         <div class="spinner">
@@ -387,7 +551,12 @@
         <img src="../images/vitly-new-logo.png" alt="" width="50" onclick="window.location.href='/dashboard'"
             style="position: absolute; left: 40px; top: 50%; transform: translateY(-50%); cursor: pointer;">
         <button class="hamburger" onclick="toggleMobileMenu()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
         </button>
         <button onclick="window.location.href='/dashboard'">Home</button>
         <button class="elite-nav-btn" onclick="window.location.href='/elite'">
@@ -407,52 +576,41 @@
         <div class="profile-card">
             <h2 id="userName" class="profile-name">Loading...</h2>
             <p id="userEmail" class="profile-email">Loading email...</p>
-            <button class="btn-delete" onclick="deleteAccount()">Delete account from VITly</button>
+            <button id="mainLoginBtn" class="btn-login-main" onclick="window.location.href='/login'">Login (Only VIT Students)</button>
         </div>
     </div>
-    <script>
-        window.addEventListener("load", () => {
-            fetch("/api/user")
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById("userName").innerText = data.name;
-                    document.getElementById("userEmail").innerText = data.email;
-                    if (data.picture) document.getElementById("userPicture").src = data.picture;
-                    setTimeout(() => { document.getElementById("loader").classList.add("hide"); }, 200);
-                })
-                .catch(err => {
-                    console.error("Failed to load user", err);
-                    setTimeout(() => { document.getElementById("loader").classList.add("hide"); }, 200);
-                });
-        });
     <script>
         async function checkAuth() {
             try {
                 const res = await fetch('/api/user');
                 const user = await res.json();
                 const authBtn = document.getElementById('nav-auth-btn');
+                const mainLoginBtn = document.getElementById('mainLoginBtn');
+
                 if (user.authenticated) {
                     authBtn.textContent = 'Logout';
                     authBtn.classList.remove('login-btn');
                     authBtn.onclick = logout;
-                    
-                    document.getElementById('profileName').textContent = user.name;
-                    document.getElementById('profileEmail').textContent = user.email;
-                    document.getElementById('user-pic').src = user.picture || '../images/default-avatar.png';
+
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userEmail').textContent = user.email;
+                    if (mainLoginBtn) mainLoginBtn.style.display = 'none';
                 } else {
                     authBtn.textContent = 'Login';
                     authBtn.classList.add('login-btn');
                     authBtn.onclick = () => window.location.href = '/login';
-                    
-                    document.getElementById('profileName').textContent = "Guest User";
-                    document.getElementById('profileEmail').textContent = "Please login to see your details";
-                    document.getElementById('user-pic').src = '../images/default-avatar.png';
-                    document.querySelector('.danger-zone').style.display = 'none';
+
+                    document.getElementById('userName').textContent = "Guest User";
+                    document.getElementById('userEmail').textContent = "Please login to see your profile details.";
+                    if (mainLoginBtn) mainLoginBtn.style.display = 'block';
                 }
             } catch (err) {
                 console.error("Auth check failed:", err);
+                document.getElementById('userName').textContent = "Guest User";
+                document.getElementById('userEmail').textContent = "Please login to see your profile details.";
             } finally {
-                document.getElementById('loader').classList.add('hide');
+                const loader = document.getElementById('loader');
+                if (loader) loader.classList.add('hide');
             }
         }
         function toggleMobileMenu() {
@@ -498,40 +656,7 @@
                 }
             }, 10);
         }
-        function deleteAccount() {
-            const modalHTML = `
-            <div id="deleteModalOverlay" class="modal-overlay active" style="position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 9999; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.3s ease;">
-                <div class="modal-card" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); text-align: center; width: 90%; max-width: 400px; transform: scale(0.9); transition: transform 0.3s ease;">
-                    <h2 style="color: #333; margin-bottom: 10px;">Delete Account</h2>
-                    <p style="color: #666; font-size: 15px; margin-bottom: 30px;">Are you sure you want to completely delete your account from VITly? This action cannot be undone.</p>
-                    <div style="display: flex; gap: 15px; justify-content: center;">
-                        <button onclick="document.getElementById('deleteModalOverlay').remove()" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #f1f1f1; color: #333;">Cancel</button>
-                        <button onclick="executeDelete()" style="padding: 12px 25px; border-radius: 30px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; background: #ff3b30; color: white;">Delete</button>
-                    </div>
-                </div>
-            </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            setTimeout(() => {
-                const overlay = document.getElementById('deleteModalOverlay');
-                if (overlay) {
-                    overlay.style.opacity = '1';
-                    overlay.querySelector('.modal-card').style.transform = 'scale(1)';
-                }
-            }, 10);
-        }
-        function executeDelete() {
-            fetch('/api/delete-user', { method: 'DELETE' })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = "/";
-                    } else {
-                        alert("Failed to delete account.");
-                    }
-                })
-                .catch(err => alert("Error communicating with server."));
-        }
     </script>
 </body>
+
 </html>
